@@ -1,19 +1,28 @@
-# Extraction Principles / 抽出の原則
+# 抽出の原則
 
-## Core Concept
-Extraction is the balance of dissolving desirable compounds while leaving behind the undesirable ones.
-抽出とは、好ましい成分を溶かし出し、好ましくない成分を残すバランスのコントロールである。
+## 核心となる考え
+抽出とは、好ましい成分を溶かし出しながら、好ましくない成分を残すバランスのコントロールである。
 
-## Objective Mechanism (Facts)
-- **Solubility**: Different compounds dissolve at different rates and temperatures.
-- **Surface Area**: Finer grind increases surface area, accelerating extraction.
-- **Time & Temperature**: Higher heat and longer time increase total dissolved solids (TDS).
+## 客観的な事実
+- **溶けやすさの違い**：成分によって水に溶けるタイミングと速さが異なる。酸や甘味は早く出て、苦味や渋みは後から出てくる傾向がある
+- **挽き目（粒の大きさ）の影響**：細かく挽くほど豆の表面積が増え、成分が溶け出す速度が上がる（＝抽出が進みやすくなる）
+- **お湯の温度と時間の影響**：温度が高く、時間が長いほど、コーヒーの液体中に溶け込む成分の総量（TDS）が増える
 
-## Subjective Application (Perception)
-- Under-extracted: Sour, salty, thin, lacking finish.
-- Over-extracted: Bitter, astringent, dry, hollow.
-- Ideal: Sweet, balanced, complex.
+## 主観的な感じ方
+- **抽出不足のとき**：酸っぱい・塩っぽい・薄い・余韻がない
+- **抽出過多のとき**：苦い・渋い・乾いた感じ・空洞感がある
+- **ちょうどよいとき**：甘い・バランスが取れている・複雑味がある
 
-## Quotable Insight
-> "Extraction is not about getting everything out; it's about getting the *right* things out in the *right* proportion."
+## 今日の名言
 > 「抽出とは全てを出すことではなく、正しい成分を正しい比率で取り出すことである。」
+
+## 自分との接続
+
+### 自分の言葉で言うと
+> （抽出について、自分なりに一言でまとめてみよう）
+
+### 実際に体験したこと
+- （例：抽出不足・過多になったとき、どんな味だったか）
+
+### まだ腑に落ちていないこと
+- （疑問・違和感・次に試してみたいこと）

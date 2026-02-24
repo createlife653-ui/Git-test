@@ -1,11 +1,22 @@
-# Improvement Loop / 改善ループ
+# 改善ループ
 
-## Steps / 手順
-1. **Brew/Roast**: Execute based on plan.
-2. **Taste**: Objectively evaluate using framework.
-3. **Analyze**: Compare result vs intent.
-4. **Hypothesize**: Identify one variable to change.
-5. **Repeat**.
+## 手順
+1. **淹れる / 焙煎する**：計画に従って実行する
+2. **味わう**：フレームワークを使って客観的に評価する
+3. **分析する**：「狙った味」と「実際の味」を比べる
+4. **仮説を立てる**：次に変えるべき変数を一つだけ決める
+5. **繰り返す**
 
-## Quote / 名言
-> "Failure is data. Success is validation."
+## 名言
+> 「失敗はデータ。成功は検証。」
+
+## 自分との接続
+
+### 自分の言葉で言うと
+> （改善ループについて、自分なりに一言でまとめてみよう）
+
+### 実際に体験したこと
+- （例：このループを回してみて、何が変わったか）
+
+### まだ腑に落ちていないこと
+- （疑問・一番難しいと感じるステップなど）

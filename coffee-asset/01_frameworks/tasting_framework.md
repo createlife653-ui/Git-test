@@ -1,12 +1,24 @@
-# Tasting Framework / テイスティング・フレームワーク
+# テイスティング・フレームワーク（基本の手順）
 
-## Standard Protocol / 基本の手順
-1. **Aroma (Dry)**: Smell ground coffee before wetting.
-2. **Aroma (Wet/Break)**: Smell the crust after adding water.
-3. **Flavor (Hot)**: Slurp vigorously to spray over palate. Note initial impact.
-4. **Acidity/Body**: Evaluate structure and tactile feel.
-5. **Aftertaste**: Note length and quality of finish.
-6. **Cooling**: Re-evaluate as temp drops.
+## 手順
 
-## Quote / 名言
-> "Taste first, think later. Let the coffee speak before your brain interprets."
+1. **香り（ドライ）**：お湯を入れる前に、挽いたコーヒーの粉の香りを嗅ぐ
+2. **香り（ウェット / ブレイク）**：お湯を注いだ後、表面に浮く泡の塊（クラスト）の香りを嗅ぐ
+3. **味わい（熱いうち）**：勢いよくすすって口全体に広げる。最初の印象を記録する
+4. **酸味 / ボディ**：液体の構造感と、口の中で感じる重さ・質感を評価する
+5. **余韻**：飲み込んだ後に残る味の長さと質を確認する
+6. **冷めてから再評価**：温度が下がったときに、味がどう変化したかを見る
+
+## 名言
+> 「まず味わい、次に考えよ。頭が解釈する前に、コーヒーに語らせろ。」
+
+## 自分との接続
+
+### 自分の言葉で言うと
+> （このテイスティング手順について、自分なりに一言でまとめてみよう）
+
+### 実際に体験したこと
+- （例：この手順でやってみて気づいたこと・難しかったステップ）
+
+### まだ腑に落ちていないこと
+- （疑問・うまくできなかった部分など）

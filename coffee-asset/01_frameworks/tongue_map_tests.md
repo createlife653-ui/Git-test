@@ -1,12 +1,24 @@
-# Tongue Calibration Tests / 舌のキャリブレーション
+# 舌のキャリブレーション（感覚の調整テスト）
 
-## Purpose / 目的
-To verify sensory acuity and identify personal blind spots.
+## 目的
+自分の感覚の正確さを確認し、苦手な味（個人的な盲点）を見つけるためのトレーニング。
 
-## Tests / テスト内容
-1. **Sweet/Salt/Sour Solutions**: Tasting basic water solutions blindly.
-2. **Triangulation**: Identifying the odd one out of 3 cups.
-3. **Threshold Testing**: Finding the lowest concentration perceivable.
+## テスト内容
 
-## Quote / 名言
-> "Your tongue is the instrument; keep it tuned."
+1. **基本味の識別テスト**：甘い・塩辛い・酸っぱい水溶液を目隠しして飲み、何の味かを当てる
+2. **トライアングルテスト**：3杯のうち1杯だけ違うものを当てる（どれが違うかを識別する）
+3. **閾値テスト**：どのくらい薄い濃度まで味を感じ取れるか、自分の「感知の限界」を確認する
+
+## 名言
+> 「舌は楽器である。常にチューニングを怠るな。」
+
+## 自分との接続
+
+### 自分の言葉で言うと
+> （このテストについて、自分なりに一言でまとめてみよう）
+
+### 実際に体験したこと
+- （例：やってみてどの味が一番難しかったか）
+
+### まだ腑に落ちていないこと
+- （疑問・自分の感覚の弱点だと感じること）

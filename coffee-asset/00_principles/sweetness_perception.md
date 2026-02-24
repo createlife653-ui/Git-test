@@ -1,18 +1,27 @@
-# Perception of Sweetness / 甘味の知覚
+# 甘味の知覚
 
-## Core Concept
-Coffee contains little actual sugar; "sweetness" is largely an aromatic association and lack of bitterness/astringency.
-コーヒーに含まれる糖分は微量であり、「甘味」の多くは香りによる連想と、苦味・収斂味の欠如によって感じられるものである。
+## 核心となる考え
+コーヒーに含まれる糖分はごくわずかである。「甘い」と感じるのは、主に香りによる連想と「苦味・渋みがない」ことによってもたらされる感覚だ。
 
-## Objective Mechanism (Facts)
-- **Chemistry**: Simple sugars (Glucose, Fructose) degrade during roasting.
-- **Maillard Reaction**: Creates caramel and nutty compounds that *smell* sweet.
-- **Balance**: Acid acts to brighten sweetness; high bitterness masks it.
+## 客観的な事実
+- **糖分の変化**：生豆に含まれる単糖類（ブドウ糖・果糖）は、焙煎の熱によって分解・変化してしまう
+- **メイラード反応**：焙煎中に起きる化学反応で、キャラメルやナッツのような「甘く香る」成分が生まれる。これは「甘い味」ではなく「甘い香り」
+- **酸味と苦味のバランス**：適度な酸味は甘さを引き立て、強すぎる苦味は甘さを隠してしまう
 
-## Subjective Application (Perception)
-- Descriptors: Caramel, honey, ripe fruit, brown sugar.
-- Texture: Syrupy body often enhances the *sensation* of sweetness.
+## 主観的な感じ方
+- **表現の言葉**：キャラメル、はちみつ、熟した果物、黒糖
+- **舌触りの影響**：とろみのある液体感（シロップのような質感）は、甘さをより強く「感じさせる」効果がある
 
-## Quotable Insight
-> "We drink coffee for the memory of sugar, not the presence of it."
+## 今日の名言
 > 「我々は砂糖の存在そのものではなく、砂糖の記憶を飲むためにコーヒーを味わう。」
+
+## 自分との接続
+
+### 自分の言葉で言うと
+> （甘味について、自分なりに一言でまとめてみよう）
+
+### 実際に体験したこと
+- （例：「甘い」と感じたコーヒーはどんな豆・淹れ方だったか）
+
+### まだ腑に落ちていないこと
+- （疑問・違和感・次に試してみたいこと）

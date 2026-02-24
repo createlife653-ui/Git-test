@@ -1,18 +1,29 @@
-# Mechanism of Bitterness / 苦味のメカニズム
+# 苦味のメカニズム
 
-## Core Concept
-Bitterness in coffee serves as a counterpoint to acidity and sweetness, providing depth and structure.
-コーヒーの苦味は酸味や甘味の対極として機能し、味わいに深みと構造を与える。
+## 核心となる考え
+コーヒーの苦味は酸味や甘味の「対極」として機能し、味わいに深みと骨格を与える存在である。
 
-## Objective Mechanism (Facts)
-- **Compounds**: Caffeine, Trigonelline, Melanoidins, Quinic Acid lactones.
-- **Roast Level**: Darker roasts carbonize fibers, creating dry distillation notes (Ashy/Smoky).
-- **Extraction**: Over-extraction pulls tannins and heavier molecular weight compounds.
+## 客観的な事実
+- **含まれる成分**：カフェイン、トリゴネリン、メイラード反応物質（メラノイジン）、キナ酸ラクトン
+- **焙煎の影響**：深煎りになるほど豆の繊維が炭化し、灰や煙のような「乾いた苦味」が出やすくなる
+- **過抽出との関係**：お湯に豆を長くさらしすぎると、タンニンなど分子量の重い成分が溶け出し、強い苦味と渋みが生じる
 
-## Subjective Application (Perception)
-- "Good" Bitterness: Dark chocolate, cacao nibs, grapefruit pith.
-- "Bad" Bitterness: Medicinal, burnt rubber, harsh chemical taste.
+## 主観的な感じ方
+- **良い苦味**：ダークチョコレート、カカオニブ、グレープフルーツの白い部分（ピス）のような苦味
+- **悪い苦味**：薬品のような、焦げたゴムのような、強烈な刺激を伴う苦味
 
-## Quotable Insight
-> "Bitterness is the anchor of flavor; without it, coffee would wash away too quickly."
+## 今日の名言
 > 「苦味は風味の錨（いかり）である。それがなければ、コーヒーの余韻はすぐに消え去ってしまう。」
+
+## 自分との接続
+
+### 自分の言葉で言うと
+> （苦味について、自分なりに一言でまとめてみよう）
+コーヒーは苦いものってイメージあるけど苦みを抑えようとするときもあるから、逆にいい苦みってわかりずらいと感じる。
+
+### 実際に体験したこと
+- （例：どの焙煎度・豆でどんな苦味を感じたか）
+インドネシアやブラジルのコーヒー豆に多い印象。焙煎店に焙煎度合いは任せちゃうけど苦みほしい時はお湯の温度90度くらいに上げることが多いかな。
+### まだ腑に落ちていないこと
+- （疑問・違和感・次に試してみたいこと）
+酸味に比べて苦みの種類少なくないか？

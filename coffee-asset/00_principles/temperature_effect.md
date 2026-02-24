@@ -1,18 +1,29 @@
-# Effect of Temperature / 温度の変化と味わい
+# 温度の変化と味わい
 
-## Core Concept
-Flavor perception changes drastically as coffee cools; a good coffee improves or reveals new nuances as it approaches room temperature.
-温度が下がるにつれて風味の感じ方は劇的に変化する。良いコーヒーは室温に近づくにつれて新たなニュアンスを明らかにする。
+## 核心となる考え
+温度が下がるにつれて風味の感じ方は劇的に変化する。良いコーヒーは冷めるにつれて新たなニュアンスを見せてくれる。
 
-## Objective Mechanism (Facts)
-- **Human Physiology**: TRPM5 taste receptors (sweet/bitter) are temperature sensitive. Sweetness is harder to perceive at very high temps.
-- **Volatility**: Aromatics vaporize rapidly at high temps (smell). As it cools, taste (tongue) dominates over orthonasal olfaction.
+## 客観的な事実
+- **味覚受容体の温度感受性**：甘味・苦味を感知する受容体（TRPM5）は体温付近で最もよく働く。高温すぎると甘さが感じにくくなる
+- **香りの揮発と変化**：温度が高いと香り成分は素早く揮発するため「鼻で感じる香り」が強い。冷めてくると揮発が落ち着き、「舌で感じる味」の方が主役になってくる
 
-## Subjective Application (Perception)
-- Hot (60°C+): Aromatic, body-dominant, bitterness is prominent.
-- Warm (40-50°C): Sweetness and acidity become clearer. Balance peak.
-- Cool (<40°C): Defects reveal themselves. True acidity structure is visible.
+## 主観的な感じ方
+| 温度帯 | 感じ方 |
+|--------|--------|
+| 熱い（60℃以上） | 香りが立つ。ボディ感が強い。苦味が目立ちやすい |
+| 温かい（40〜50℃） | 甘さと酸味がはっきりしてくる。バランスのピーク |
+| 冷めた（40℃以下） | 欠点が現れやすい。酸味の本当の構造が見えてくる |
 
-## Quotable Insight
-> "Hot coffee makes promises; cool coffee keeps them."
+## 今日の名言
 > 「熱いコーヒーは約束をし、冷めたコーヒーはその約束を守る（あるいは破る）。」
+
+## 自分との接続
+
+### 自分の言葉で言うと
+> （温度と味の関係について、自分なりに一言でまとめてみよう）
+
+### 実際に体験したこと
+- （例：冷めたら急に酸っぱくなった、逆に美味しくなったなど）
+
+### まだ腑に落ちていないこと
+- （疑問・違和感・次に試してみたいこと）
