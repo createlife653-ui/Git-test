@@ -1,5 +1,5 @@
 # YYYYMMDD Bean Name (日付と豆の名前)
-20251122-Mocha‗Mattari
+20251122-Mocha＿Mattari
 ## 1. Basic Data / 豆のデータ
 (わかっていることだけでOK！)
 - 生産国：イエメン
