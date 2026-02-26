@@ -1,4 +1,4 @@
-# [YYYYMMDD] [Bean Name] / [豆の名前]
+# YYYYMMDD Bean Name / 豆の名前
 
 ## 1. Basic Data (Objective Information / 客観情報)
 - **Origin (産地)**: Country, Region, Farm
@@ -33,4 +33,4 @@
 - [ ] Grind finer (3 clicks) to extend contact time.
 
 ## 6. Quotable Summary (For Asset / 資産化)
-> "[One sentence summary of this bean's character]"
+> "One sentence summary of this bean's character"
