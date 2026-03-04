@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS recipes (
   image_url text,
   servings text,
   note text,
+  category text,
   is_favorite boolean DEFAULT false,
   created_at timestamptz DEFAULT now()
 );
@@ -55,3 +56,14 @@ CREATE POLICY "Allow all" ON ingredients FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all" ON steps FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all" ON tags FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all" ON recipe_tags FOR ALL USING (true) WITH CHECK (true);
+
+-- 既存のテーブルにcategoryカラムを追加（既に存在する場合のエラーを回避）
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'recipes' AND column_name = 'category'
+  ) THEN
+    ALTER TABLE recipes ADD COLUMN category text;
+  END IF;
+END $$;

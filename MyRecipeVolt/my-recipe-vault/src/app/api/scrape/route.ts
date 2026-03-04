@@ -5,6 +5,7 @@ interface ScrapedRecipe {
     title: string;
     image_url: string;
     servings: string;
+    category: string;
     ingredients: { name: string; amount: string }[];
     steps: { step_number: number; instruction: string }[];
     source_url: string;
@@ -114,6 +115,7 @@ export async function POST(req: NextRequest) {
             title: "",
             image_url: "",
             servings: "",
+            category: "",
             ingredients: [],
             steps: [],
             source_url: url,

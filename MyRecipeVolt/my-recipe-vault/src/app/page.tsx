@@ -9,6 +9,7 @@ interface Recipe {
   title: string;
   image_url: string | null;
   source_url: string | null;
+  category: string | null;
   is_favorite: boolean;
   created_at: string;
 }
@@ -27,6 +28,7 @@ const CATEGORIES = [
 export default function HomePage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [searchLoading, setSearchLoading] = useState(false);
 
@@ -34,13 +36,17 @@ export default function HomePage() {
     fetchRecipes();
   }, []);
 
-  const fetchRecipes = async (query?: string) => {
+  const fetchRecipes = async (query?: string, category?: string | null) => {
     setSearchLoading(true);
     try {
       let req = supabase
         .from("recipes")
-        .select("id, title, image_url, source_url, is_favorite, created_at")
+        .select("id, title, image_url, source_url, category, is_favorite, created_at")
         .order("created_at", { ascending: false });
+
+      if (category) {
+        req = req.eq("category", category);
+      }
 
       if (query && query.trim()) {
         // タイトル検索
@@ -61,8 +67,14 @@ export default function HomePage() {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setSearch(val);
-    const timer = setTimeout(() => fetchRecipes(val), 400);
+    const timer = setTimeout(() => fetchRecipes(val, selectedCategory), 400);
     return () => clearTimeout(timer);
+  };
+
+  const handleCategoryClick = (categoryLabel: string) => {
+    const newCategory = selectedCategory === categoryLabel ? null : categoryLabel;
+    setSelectedCategory(newCategory);
+    fetchRecipes(search, newCategory);
   };
 
   const toggleFavorite = async (id: string, current: boolean, e: React.MouseEvent) => {
@@ -96,8 +108,30 @@ export default function HomePage() {
 
       {/* カテゴリアイコン */}
       <div style={{ display: "flex", gap: 12, overflowX: "auto", paddingBottom: 8, marginBottom: 40 }}>
+        <button
+          key="all"
+          className="category-pill"
+          onClick={() => handleCategoryClick("")}
+          style={{
+            ...(selectedCategory === "" || selectedCategory === null
+              ? { backgroundColor: "var(--accent-primary)", color: "#fff" }
+              : {})
+          }}
+        >
+          <span className="category-pill-icon">📂</span>
+          <span className="category-pill-label">すべて</span>
+        </button>
         {CATEGORIES.map((cat) => (
-          <button key={cat.label} className="category-pill">
+          <button
+            key={cat.label}
+            className="category-pill"
+            onClick={() => handleCategoryClick(cat.label)}
+            style={{
+              ...(selectedCategory === cat.label
+                ? { backgroundColor: "var(--accent-primary)", color: "#fff" }
+                : {})
+            }}
+          >
             <span className="category-pill-icon">{cat.icon}</span>
             <span className="category-pill-label">{cat.label}</span>
           </button>

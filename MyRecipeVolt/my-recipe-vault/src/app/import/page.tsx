@@ -4,10 +4,22 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
+const CATEGORIES = [
+  { icon: "🥩", label: "肉料理" },
+  { icon: "🐟", label: "魚料理" },
+  { icon: "🥦", label: "野菜" },
+  { icon: "🍜", label: "麺類" },
+  { icon: "🍚", label: "ご飯" },
+  { icon: "🥗", label: "サラダ" },
+  { icon: "🍲", label: "煮物" },
+  { icon: "🍰", label: "スイーツ" },
+];
+
 interface ParsedRecipe {
     title: string;
     image_url: string;
     servings: string;
+    category: string;
     ingredients: { name: string; amount: string }[];
     steps: { step_number: number; instruction: string }[];
     source_url: string;
@@ -74,6 +86,7 @@ export default function ImportPage() {
                     source_url: recipe.source_url,
                     image_url: recipe.image_url || null,
                     servings: recipe.servings || null,
+                    category: recipe.category || null,
                 })
                 .select()
                 .single();
@@ -265,6 +278,70 @@ export default function ImportPage() {
                                     value={recipe.title}
                                     onChange={(e) => setRecipe({ ...recipe, title: e.target.value })}
                                 />
+                            </div>
+
+                            {/* カテゴリ */}
+                            <div>
+                                <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: 8 }}>カテゴリ（任意）</label>
+                                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                                    {CATEGORIES.map((cat) => (
+                                        <button
+                                            key={cat.label}
+                                            type="button"
+                                            onClick={() => setRecipe({ ...recipe, category: cat.label })}
+                                            style={{
+                                                display: "inline-flex",
+                                                alignItems: "center",
+                                                gap: 6,
+                                                padding: "8px 12px",
+                                                borderRadius: 20,
+                                                border: recipe.category === cat.label
+                                                    ? "2px solid var(--accent-primary)"
+                                                    : "1px solid var(--border-color)",
+                                                background: recipe.category === cat.label
+                                                    ? "rgba(var(--accent-primary-rgb), 0.1)"
+                                                    : "var(--card-bg)",
+                                                color: recipe.category === cat.label
+                                                    ? "var(--accent-primary)"
+                                                    : "var(--text-primary)",
+                                                fontSize: "0.85rem",
+                                                cursor: "pointer",
+                                                transition: "all 0.2s",
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                if (recipe.category !== cat.label) {
+                                                    e.currentTarget.style.borderColor = "var(--accent-primary)";
+                                                }
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                if (recipe.category !== cat.label) {
+                                                    e.currentTarget.style.borderColor = "var(--border-color)";
+                                                }
+                                            }}
+                                        >
+                                            <span>{cat.icon}</span>
+                                            <span>{cat.label}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                                {recipe.category && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setRecipe({ ...recipe, category: "" })}
+                                        style={{
+                                            marginTop: 8,
+                                            padding: "4px 8px",
+                                            fontSize: "0.75rem",
+                                            background: "none",
+                                            border: "1px solid var(--border-color)",
+                                            borderRadius: 4,
+                                            color: "var(--text-muted)",
+                                            cursor: "pointer",
+                                        }}
+                                    >
+                                        カテゴリを解除
+                                    </button>
+                                )}
                             </div>
 
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>

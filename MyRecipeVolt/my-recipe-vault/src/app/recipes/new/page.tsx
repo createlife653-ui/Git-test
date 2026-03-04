@@ -5,6 +5,17 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
+const CATEGORIES = [
+  { icon: "🥩", label: "肉料理" },
+  { icon: "🐟", label: "魚料理" },
+  { icon: "🥦", label: "野菜" },
+  { icon: "🍜", label: "麺類" },
+  { icon: "🍚", label: "ご飯" },
+  { icon: "🥗", label: "サラダ" },
+  { icon: "🍲", label: "煮物" },
+  { icon: "🍰", label: "スイーツ" },
+];
+
 export default function NewRecipePage() {
     const router = useRouter();
     const [saving, setSaving] = useState(false);
@@ -13,6 +24,7 @@ export default function NewRecipePage() {
         title: "",
         image_url: "",
         servings: "",
+        category: "",
         note: "",
     });
     const [ingredients, setIngredients] = useState([
@@ -58,6 +70,7 @@ export default function NewRecipePage() {
                     title: form.title,
                     image_url: form.image_url || null,
                     servings: form.servings || null,
+                    category: form.category || null,
                     note: form.note || null,
                 })
                 .select()
@@ -123,6 +136,68 @@ export default function NewRecipePage() {
                         <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: 6 }}>タイトル *</label>
                         <input type="text" className="input-field" placeholder="例: 鶏肉の照り焼き" value={form.title}
                             onChange={(e) => setForm({ ...form, title: e.target.value })} />
+                    </div>
+                    <div>
+                        <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: 8 }}>カテゴリ（任意）</label>
+                        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                            {CATEGORIES.map((cat) => (
+                                <button
+                                    key={cat.label}
+                                    type="button"
+                                    onClick={() => setForm({ ...form, category: cat.label })}
+                                    style={{
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: 6,
+                                        padding: "8px 12px",
+                                        borderRadius: 20,
+                                        border: form.category === cat.label
+                                            ? "2px solid var(--accent-primary)"
+                                            : "1px solid var(--border-color)",
+                                        background: form.category === cat.label
+                                            ? "rgba(var(--accent-primary-rgb), 0.1)"
+                                            : "var(--card-bg)",
+                                        color: form.category === cat.label
+                                            ? "var(--accent-primary)"
+                                            : "var(--text-primary)",
+                                        fontSize: "0.85rem",
+                                        cursor: "pointer",
+                                        transition: "all 0.2s",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (form.category !== cat.label) {
+                                            e.currentTarget.style.borderColor = "var(--accent-primary)";
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (form.category !== cat.label) {
+                                            e.currentTarget.style.borderColor = "var(--border-color)";
+                                        }
+                                    }}
+                                >
+                                    <span>{cat.icon}</span>
+                                    <span>{cat.label}</span>
+                                </button>
+                            ))}
+                        </div>
+                        {form.category && (
+                            <button
+                                type="button"
+                                onClick={() => setForm({ ...form, category: "" })}
+                                style={{
+                                    marginTop: 8,
+                                    padding: "4px 8px",
+                                    fontSize: "0.75rem",
+                                    background: "none",
+                                    border: "1px solid var(--border-color)",
+                                    borderRadius: 4,
+                                    color: "var(--text-muted)",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                カテゴリを解除
+                            </button>
+                        )}
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                         <div>

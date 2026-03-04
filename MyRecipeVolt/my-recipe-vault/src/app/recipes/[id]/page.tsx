@@ -11,6 +11,7 @@ interface Recipe {
     image_url: string | null;
     source_url: string | null;
     servings: string | null;
+    category: string | null;
     note: string | null;
     is_favorite: boolean;
     created_at: string;
@@ -156,6 +157,11 @@ export default function RecipeDetailPage() {
                 <div style={{ flex: 1 }}>
                     <h1 style={{ fontSize: "1.8rem", fontWeight: 700, lineHeight: 1.3, marginBottom: 8 }}>{recipe.title}</h1>
                     <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+                        {recipe.category && (
+                            <span className="tag-chip" style={{ backgroundColor: "var(--accent-primary)", color: "#fff" }}>
+                                {recipe.category}
+                            </span>
+                        )}
                         {recipe.servings && (
                             <span className="tag-chip">👥 {recipe.servings}</span>
                         )}
