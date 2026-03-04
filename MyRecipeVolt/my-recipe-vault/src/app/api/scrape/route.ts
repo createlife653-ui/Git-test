@@ -251,6 +251,123 @@ export async function POST(req: NextRequest) {
             });
         }
 
+        // === 白ごはん.com (sirogohan.com) 専用パーサー ===
+        if (url.includes("sirogohan.com") && recipe.ingredients.length === 0) {
+            // 材料はリスト形式で記述されている
+            $("li").each((_, el) => {
+                const $el = $(el);
+                // 親要素が材料セクションにあるか確認（見出し「材料」を含む）
+                const text = $el.text().trim();
+                if (!text) return;
+
+                // 材料セクションの見出しを探す
+                const $heading = $el.prevUntil("h2").last().prev("h2, h3");
+                const headingText = $heading.text();
+
+                // 「材料」を含む見出しの下にある場合のみ処理
+                if (headingText && headingText.includes("材料")) {
+                    // 「大根…600ｇ」のような形式を分割
+                    let name = text;
+                    let amount = "";
+
+                    // 「…」「：」「 」で分割
+                    const splitPatterns = [/\s*…\s*/, /\s*：\s*/, /\s{2,}/];
+                    for (const pattern of splitPatterns) {
+                        const parts = text.split(pattern);
+                        if (parts.length >= 2) {
+                            name = parts[0].trim();
+                            amount = parts[1].trim();
+                            break;
+                        }
+                    }
+
+                    if (name && !name.startsWith("※")) {
+                        recipe.ingredients.push({ name, amount });
+                    }
+                }
+            });
+
+            // 手順は段落形式
+            let stepNum = 1;
+            $("p").each((_, el) => {
+                const $el = $(el);
+                const text = $el.text().trim();
+                if (!text) return;
+
+                // 親要素が手順セクションにあるか確認
+                const $heading = $el.prevUntil("h2, h3").last().prev("h2, h3");
+                const headingText = $heading.text();
+
+                // 「作り方」「レシピ」を含む見出しの下にある場合のみ処理
+                if (headingText && (headingText.includes("作り方") || headingText.includes("レシピ"))) {
+                    // 数字で始まる手順を抽出
+                    if (/^[0-9０-９]/.test(text)) {
+                        // 先頭の数字を削除
+                        const instruction = text.replace(/^[0-9０-９]+\s*[.．、]?\s*/, "").trim();
+                        if (instruction && instruction.length > 10) {
+                            recipe.steps.push({ step_number: stepNum++, instruction });
+                        }
+                    }
+                }
+            });
+        }
+
+        // === キッコーマン (kikkoman.co.jp) 専用パーサー ===
+        if (url.includes("kikkoman.co.jp") && recipe.ingredients.length === 0) {
+            // 材料はul/li構造
+            $("ul").each((_, el) => {
+                const $ul = $(el);
+                // 前の見出しを確認
+                const $prev = $ul.prev("h2, h3, h4").first();
+                if ($prev.length && $prev.text().includes("材料")) {
+                    $ul.find("> li").each((_, li) => {
+                        const $li = $(li);
+                        const text = $li.text().trim();
+                        if (!text || text.startsWith("（")) return;
+
+                        // ネストされた構造に対応
+                        let name = text;
+                        let amount = "";
+
+                        const nestedAmount = $li.find("> div, > span").first().text().trim();
+                        const parentText = $li.contents().filter(function() {
+                            return this.nodeType === 3; // テキストノードのみ
+                        }).text().trim();
+
+                        if (nestedAmount && parentText) {
+                            name = parentText;
+                            amount = nestedAmount;
+                        } else if (text.includes("  ")) {
+                            const parts = text.split(/\s{2,}/);
+                            if (parts.length >= 2) {
+                                name = parts[0].trim();
+                                amount = parts.slice(1).join(" ").trim();
+                            }
+                        }
+
+                        if (name) {
+                            recipe.ingredients.push({ name, amount });
+                        }
+                    });
+                }
+            });
+
+            // 手順はol/li構造
+            $("ol").each((_, el) => {
+                const $ol = $(el);
+                // 前の見出しを確認
+                const $prev = $ol.prev("h2, h3, h4").first();
+                if ($prev.length && ($prev.text().includes("つくり方") || $prev.text().includes("作り方"))) {
+                    $ol.find("> li").each((i, li) => {
+                        const text = $(li).text().trim();
+                        if (text) {
+                            recipe.steps.push({ step_number: i + 1, instruction: text });
+                        }
+                    });
+                }
+            });
+        }
+
         if (!recipe.title || recipe.title === "タイトル不明") {
             recipe.title = "タイトルが取得できませんでした";
         }
