@@ -10,28 +10,104 @@ interface ScrapedRecipe {
     source_url: string;
 }
 
+// Multiple User-Agent strings to rotate through
+const USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+];
+
+function randomUA() {
+    return USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
+}
+
 export async function POST(req: NextRequest) {
     try {
         const { url } = await req.json();
 
-        if (!url) {
+        if (!url || typeof url !== "string") {
             return NextResponse.json({ error: "URLが指定されていません" }, { status: 400 });
         }
 
-        // HTMLを取得
-        const response = await fetch(url, {
-            headers: {
-                "User-Agent":
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                "Accept-Language": "ja,en;q=0.9",
-            },
-        });
-
-        if (!response.ok) {
-            return NextResponse.json({ error: `ページを取得できませんでした (${response.status})` }, { status: 400 });
+        // Validate URL format
+        let parsedUrl: URL;
+        try {
+            parsedUrl = new URL(url);
+            if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+                throw new Error("invalid protocol");
+            }
+        } catch {
+            return NextResponse.json({ error: "URLの形式が正しくありません" }, { status: 400 });
         }
 
-        const html = await response.text();
+        // HTMLを取得
+        let html = "";
+        let fetchStatus = 0;
+
+        try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
+            const response = await fetch(parsedUrl.toString(), {
+                headers: {
+                    "User-Agent": randomUA(),
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                    "Accept-Language": "ja,en-US;q=0.8,en;q=0.6",
+                    "Accept-Encoding": "gzip, deflate, br",
+                    "Cache-Control": "no-cache",
+                    "Pragma": "no-cache",
+                    "Sec-Fetch-Dest": "document",
+                    "Sec-Fetch-Mode": "navigate",
+                    "Sec-Fetch-Site": "none",
+                    "Upgrade-Insecure-Requests": "1",
+                },
+                redirect: "follow",
+                signal: controller.signal,
+            });
+            clearTimeout(timeout);
+
+            fetchStatus = response.status;
+
+            if (!response.ok) {
+                // Cookpad and some sites return 403 for bots
+                if (response.status === 403 || response.status === 429) {
+                    return NextResponse.json(
+                        {
+                            error: `このサイトはボット検知のためURLからの自動取得をブロックしています（HTTPステータス: ${response.status}）。手動入力をお試しください。`,
+                            blocked: true,
+                        },
+                        { status: 200 } // Return 200 so the client shows a useful message
+                    );
+                }
+                return NextResponse.json(
+                    { error: `ページを取得できませんでした（ステータス: ${response.status}）。URLが正しいか確認してください。` },
+                    { status: 400 }
+                );
+            }
+
+            html = await response.text();
+        } catch (fetchErr: unknown) {
+            const isTimeout =
+                fetchErr instanceof Error &&
+                (fetchErr.name === "AbortError" || fetchErr.message.includes("abort"));
+
+            if (isTimeout) {
+                return NextResponse.json(
+                    { error: "リクエストがタイムアウトしました（15秒）。サイトが応答していないか、接続をブロックしています。手動入力をお試しください。" },
+                    { status: 200 }
+                );
+            }
+
+            console.error("Fetch error:", fetchErr);
+            return NextResponse.json(
+                {
+                    error: "ページへの接続に失敗しました。インターネット接続を確認するか、手動入力をお試しください。",
+                    detail: fetchErr instanceof Error ? fetchErr.message : String(fetchErr),
+                },
+                { status: 200 }
+            );
+        }
+
         const $ = cheerio.load(html);
 
         const recipe: ScrapedRecipe = {
@@ -47,20 +123,32 @@ export async function POST(req: NextRequest) {
         let jsonLd: Record<string, unknown> | null = null;
         $('script[type="application/ld+json"]').each((_, el) => {
             try {
-                const parsed = JSON.parse($(el).html() || "");
+                const raw = $(el).html() || "";
+                if (!raw.trim()) return;
+                const parsed = JSON.parse(raw);
                 const items = Array.isArray(parsed) ? parsed : [parsed];
                 for (const item of items) {
-                    if (item["@type"] === "Recipe" || (Array.isArray(item["@type"]) && item["@type"].includes("Recipe"))) {
+                    if (
+                        item["@type"] === "Recipe" ||
+                        (Array.isArray(item["@type"]) && item["@type"].includes("Recipe"))
+                    ) {
                         jsonLd = item;
                         break;
                     }
                     // @graph の中を探す
-                    if (item["@graph"]) {
-                        const g = item["@graph"].find((g: Record<string, string>) => g["@type"] === "Recipe");
-                        if (g) { jsonLd = g; break; }
+                    if (item["@graph"] && Array.isArray(item["@graph"])) {
+                        const g = item["@graph"].find(
+                            (g: Record<string, string>) => g["@type"] === "Recipe"
+                        );
+                        if (g) {
+                            jsonLd = g;
+                            break;
+                        }
                     }
                 }
-            } catch { }
+            } catch {
+                // JSON parse errors are expected for some ld+json blocks — ignore
+            }
         });
 
         if (jsonLd) {
@@ -70,18 +158,23 @@ export async function POST(req: NextRequest) {
             // 画像
             const img = jsonLd["image"];
             if (typeof img === "string") recipe.image_url = img;
-            else if (Array.isArray(img)) recipe.image_url = img[0];
-            else if (img && typeof img === "object") recipe.image_url = (img as Record<string, string>)["url"] || "";
+            else if (Array.isArray(img) && (img as unknown[]).length > 0) recipe.image_url = String((img as unknown[])[0]);
+            else if (img && typeof img === "object")
+                recipe.image_url = (img as Record<string, string>)["url"] || "";
 
             // 人数
-            recipe.servings = String(jsonLd["recipeYield"] || "");
+            const yieldRaw = jsonLd["recipeYield"];
+            recipe.servings = Array.isArray(yieldRaw)
+                ? yieldRaw[0]
+                : String(yieldRaw || "");
 
             // 材料
             const rawIngredients = jsonLd["recipeIngredient"];
             if (Array.isArray(rawIngredients)) {
                 recipe.ingredients = rawIngredients.map((ing: string) => {
+                    if (typeof ing !== "string") return { amount: "", name: String(ing) };
                     // 「大さじ2 醤油」のような形式を分割
-                    const match = ing.match(/^([\d./]+\s*[^\s]{1,5})\s+(.+)$/);
+                    const match = ing.match(/^([\d./]+\s*[^\s]{1,6})\s+(.+)$/);
                     if (match) return { amount: match[1].trim(), name: match[2].trim() };
                     return { amount: "", name: ing };
                 });
@@ -95,7 +188,8 @@ export async function POST(req: NextRequest) {
                         recipe.steps.push({ step_number: i + 1, instruction: step });
                     } else if (step && typeof step === "object") {
                         const s = step as Record<string, string>;
-                        recipe.steps.push({ step_number: i + 1, instruction: s["text"] || s["name"] || "" });
+                        const text = s["text"] || s["name"] || "";
+                        if (text) recipe.steps.push({ step_number: i + 1, instruction: text });
                     }
                 });
             }
@@ -105,29 +199,77 @@ export async function POST(req: NextRequest) {
         if (!recipe.title) {
             recipe.title =
                 $('meta[property="og:title"]').attr("content") ||
-                $("title").text() ||
+                $("h1").first().text().trim() ||
+                $("title").text().trim() ||
                 "タイトル不明";
         }
         if (!recipe.image_url) {
-            recipe.image_url = $('meta[property="og:image"]').attr("content") || "";
+            recipe.image_url =
+                $('meta[property="og:image"]').attr("content") ||
+                $('meta[name="twitter:image"]').attr("content") ||
+                "";
         }
 
         // === クックパッド専用パーサー ===
         if (url.includes("cookpad.com") && recipe.ingredients.length === 0) {
-            $(".ingredient-list-item, .ingredient_name").each((_, el) => {
-                const name = $(el).find(".ingredient_name, .name").text().trim();
-                const amount = $(el).find(".ingredient_quantity, .quantity").text().trim();
+            // Try multiple selector patterns for Cookpad's changing HTML
+            const ingredientSelectors = [
+                ".ingredient-list-item",
+                "[data-ingredient-id]",
+                ".ingredient_name",
+                ".ingredient",
+            ];
+            for (const sel of ingredientSelectors) {
+                $(sel).each((_, el) => {
+                    const name =
+                        $(el).find(".ingredient_name, .name, [class*='name']").text().trim() ||
+                        $(el).text().trim();
+                    const amount =
+                        $(el).find(".ingredient_quantity, .quantity, [class*='quantity']").text().trim();
+                    if (name) recipe.ingredients.push({ name, amount });
+                });
+                if (recipe.ingredients.length > 0) break;
+            }
+        }
+
+        // === デリッシュキッチン専用パーサー ===
+        if (url.includes("delishkitchen.tv") && recipe.ingredients.length === 0) {
+            $(".ingredient-item, .ingredients-list li").each((_, el) => {
+                const name = $(el).find(".ingredient-name, .name").text().trim() || $(el).text().trim();
+                const amount = $(el).find(".ingredient-serving, .amount").text().trim();
                 if (name) recipe.ingredients.push({ name, amount });
             });
         }
 
-        if (!recipe.title) recipe.title = "タイトルが取得できませんでした";
+        // === NHK きょうの料理専用パーサー ===
+        if (url.includes("nhk.or.jp") && recipe.ingredients.length === 0) {
+            $(".recipe-material li, .ing-list li").each((_, el) => {
+                const text = $(el).text().trim();
+                if (text) recipe.ingredients.push({ name: text, amount: "" });
+            });
+        }
+
+        if (!recipe.title || recipe.title === "タイトル不明") {
+            recipe.title = "タイトルが取得できませんでした";
+        }
+
+        // Trim long titles
+        if (recipe.title.length > 200) {
+            recipe.title = recipe.title.slice(0, 200);
+        }
+
+        console.log(
+            `[scrape] ${parsedUrl.hostname} -> HTTP ${fetchStatus}, title="${recipe.title}", ings=${recipe.ingredients.length}, steps=${recipe.steps.length}`
+        );
 
         return NextResponse.json({ recipe });
     } catch (error) {
-        console.error("Scrape error:", error);
+        console.error("Scrape unexpected error:", error);
         return NextResponse.json(
-            { error: "ページの解析に失敗しました。URLを確認するか、手動入力をお試しください。" },
+            {
+                error: "予期しないエラーが発生しました。URLを確認するか、手動入力をお試しください。",
+                detail: error instanceof Error ? error.message : String(error),
+            },
             { status: 500 }
         );
     }

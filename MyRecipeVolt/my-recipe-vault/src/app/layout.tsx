@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>
+      <body suppressHydrationWarning>
         <nav className="nav">
           <Link href="/" className="nav-logo">
             🍳 My Recipe Vault
