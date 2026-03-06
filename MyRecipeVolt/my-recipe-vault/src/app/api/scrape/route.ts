@@ -253,63 +253,50 @@ export async function POST(req: NextRequest) {
 
         // === 白ごはん.com (sirogohan.com) 専用パーサー ===
         if (url.includes("sirogohan.com") && recipe.ingredients.length === 0) {
-            // 材料はリスト形式で記述されている
-            $("li").each((_, el) => {
-                const $el = $(el);
-                // 親要素が材料セクションにあるか確認（見出し「材料」を含む）
-                const text = $el.text().trim();
+            // 材料は .disc-list クラス内の li
+            $(".disc-list li").each((_, el) => {
+                const text = $(el).text().trim();
                 if (!text) return;
 
-                // 材料セクションの見出しを探す
-                const $heading = $el.prevUntil("h2").last().prev("h2, h3");
-                const headingText = $heading.text();
+                // 「大根　…　600ｇ」のような形式を分割
+                let name = text;
+                let amount = "";
 
-                // 「材料」を含む見出しの下にある場合のみ処理
-                if (headingText && headingText.includes("材料")) {
-                    // 「大根…600ｇ」のような形式を分割
-                    let name = text;
-                    let amount = "";
+                // 「…」で分割
+                const parts = text.split(/…|…/);
+                if (parts.length >= 2) {
+                    name = parts[0].trim();
+                    amount = parts[1].trim();
+                }
 
-                    // 「…」「：」「 」で分割
-                    const splitPatterns = [/\s*…\s*/, /\s*：\s*/, /\s{2,}/];
-                    for (const pattern of splitPatterns) {
-                        const parts = text.split(pattern);
-                        if (parts.length >= 2) {
-                            name = parts[0].trim();
-                            amount = parts[1].trim();
-                            break;
-                        }
-                    }
+                // リンク要素から材料名のみ抽出（リンクがある場合）
+                const linkText = $(el).find("a").first().text().trim();
+                if (linkText) {
+                    name = linkText;
+                }
 
-                    if (name && !name.startsWith("※")) {
-                        recipe.ingredients.push({ name, amount });
-                    }
+                if (name && !name.startsWith("※")) {
+                    recipe.ingredients.push({ name, amount });
                 }
             });
 
-            // 手順は段落形式
-            let stepNum = 1;
-            $("p").each((_, el) => {
-                const $el = $(el);
-                const text = $el.text().trim();
-                if (!text) return;
-
-                // 親要素が手順セクションにあるか確認
-                const $heading = $el.prevUntil("h2, h3").last().prev("h2, h3");
-                const headingText = $heading.text();
-
-                // 「作り方」「レシピ」を含む見出しの下にある場合のみ処理
-                if (headingText && (headingText.includes("作り方") || headingText.includes("レシピ"))) {
-                    // 数字で始まる手順を抽出
-                    if (/^[0-9０-９]/.test(text)) {
-                        // 先頭の数字を削除
-                        const instruction = text.replace(/^[0-9０-９]+\s*[.．、]?\s*/, "").trim();
-                        if (instruction && instruction.length > 10) {
-                            recipe.steps.push({ step_number: stepNum++, instruction });
+            // 手順は .howto .howto-block 内の p 要素
+            const $howtoSection = $(".howto").first();
+            if ($howtoSection.length) {
+                const $howtoBlock = $howtoSection.find(".howto-block").first();
+                if ($howtoBlock.length) {
+                    let stepNum = 1;
+                    $howtoBlock.find("p").each((_, p) => {
+                        const text = $(p).text().trim();
+                        if (text && text.length > 10) {
+                            // 補足や注記を除外
+                            if (!text.startsWith("※") && !text.startsWith("※具材")) {
+                                recipe.steps.push({ step_number: stepNum++, instruction: text });
+                            }
                         }
-                    }
+                    });
                 }
-            });
+            }
         }
 
         // === キッコーマン (kikkoman.co.jp) 専用パーサー ===

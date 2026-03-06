@@ -107,7 +107,7 @@ export default function HomePage() {
       </div>
 
       {/* カテゴリアイコン */}
-      <div style={{ display: "flex", gap: 12, overflowX: "auto", paddingBottom: 8, marginBottom: 40 }}>
+      <div className="category-container">
         <button
           key="all"
           className="category-pill"

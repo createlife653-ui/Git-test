@@ -143,6 +143,33 @@ body {
   font-family: inherit;
   transition: all 0.3s ease;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* モバイルでタッチ操作時にボタンやフィールドが大きくなるように */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary,
+  .btn-secondary,
+  .category-pill,
+  .favorite-btn,
+  .checkbox-item {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-bar input {
+    padding-left: 44px;
+    padding-right: 16px;
+    height: 48px;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
+
+  .input-field {
+    font-size: 16px; /* iOSで自動ズームを防止 */
+  }
 }
 
 .input-field:focus {
@@ -263,6 +290,49 @@ textarea.input-field {
   gap: 24px;
 }
 
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 20px;
+}
+
+.hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
 .nav-logo {
   font-family: 'Outfit', sans-serif;
   font-size: 1.2rem;
@@ -280,6 +350,32 @@ textarea.input-field {
   align-items: center;
   gap: 4px;
   flex: 1;
+  position: relative;
+}
+
+.nav-links.open {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.nav-links.open .nav-link {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 14px 16px;
+  border-radius: 8px;
+}
+
+.nav-links.open .nav-link:hover {
+  background: var(--glass);
 }
 
 .nav-link {
@@ -314,6 +410,28 @@ textarea.input-field {
   transition: all 0.3s ease;
   min-width: 80px;
   text-decoration: none;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* カテゴリピルコンテナ用スクロール最適化 */
+.category-container {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 40px;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.category-container::-webkit-scrollbar {
+  display: none;
+}
+
+.category-container::-webkit-scrollbar-thumb {
+  background: transparent;
 }
 
 .category-pill:hover, .category-pill.active {
@@ -551,8 +669,22 @@ textarea.input-field {
 
 /* ========== Responsive ========== */
 @media (max-width: 768px) {
+  /* モバイルメニュー */
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  /* レイアウト調整 */
   .page-container {
-    padding: 80px 16px 32px;
+    padding: 72px 12px 24px;
   }
 
   .page-title {
@@ -560,12 +692,57 @@ textarea.input-field {
   }
 
   .recipes-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
+  .recipe-card-image {
+    height: 180px;
+  }
+
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .category-pill {
+    min-width: auto;
+    padding: 10px 14px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* モバイル小さい画面用 */
+  .nav-logo {
+    font-size: 1rem;
+  }
+
   .nav {
-    padding: 0 16px;
-    gap: 12px;
+    padding: 0 12px;
+  }
+
+  .category-pill {
+    min-width: 60px;
+    padding: 8px 12px;
+  }
+
+  .category-pill-icon {
+    font-size: 1.4rem;
+  }
+
+  .category-pill-label {
+    font-size: 0.7rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* デスクトップ: 2カラム以上 */
+  .recipes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 }
