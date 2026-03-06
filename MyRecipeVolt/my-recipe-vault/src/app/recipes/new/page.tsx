@@ -1,3 +1,6 @@
+// フロントエンド: 画像アップロード → OCR → サーバーサイドAPI → 結果表示
+// より柔軟で高度なレシピ解析が可能
+
 "use client";
 
 import { useState } from "react";
@@ -20,6 +23,12 @@ export default function NewRecipePage() {
     const router = useRouter();
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string>("");
+    const [analyzing, setAnalyzing] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [ocrText, setOcrText] = useState<string>("");
+    const [parsedRecipe, setParsedRecipe] = useState<any>(null);
     const [form, setForm] = useState({
         title: "",
         image_url: "",
@@ -52,6 +61,192 @@ export default function NewRecipePage() {
         if (t && !tags.includes(t)) {
             setTags([...tags, t]);
             setTagInput("");
+        }
+    };
+
+    // 画像圧縮
+    const compressImage = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const maxWidth = 1920;
+                    const maxHeight = 1920;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx?.drawImage(img, 0, 0, width, height);
+                    resolve(canvas.toDataURL('image/jpeg', 0.92));
+                };
+                img.onerror = reject;
+                img.src = e.target?.result as string;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    };
+
+    // 画像選択ハンドラー
+    const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            setError("画像ファイルのみ選択してください");
+            return;
+        }
+
+        if (file.size > 10 * 1024 * 1024) {
+            setError("画像サイズが大きいです（10MB以下推奨）。処理に時間がかかる可能性があります。");
+        } else {
+            setError("");
+        }
+
+        setImageFile(file);
+
+        try {
+            const compressed = await compressImage(file);
+            setImagePreview(compressed);
+            setProgress(0);
+            setOcrText("");
+            setParsedRecipe(null);
+        } catch (err) {
+            setError("画像の処理に失敗しました");
+            console.error(err);
+        }
+    };
+
+    // Google Cloud Vision APIでOCR
+    const analyzeImage = async () => {
+        if (!imagePreview) {
+            setError("画像を選択してください");
+            return;
+        }
+
+        const apiKey = process.env.NEXT_PUBLIC_GOOGLE_CLOUD_API_KEY;
+        if (!apiKey || apiKey === "your_google_cloud_api_key_here") {
+            setError("Google Cloud APIキーが設定されていません。.env.localファイルに設定してください。");
+            return;
+        }
+
+        setAnalyzing(true);
+        setError("");
+        setProgress(0);
+
+        try {
+            setProgress(25);
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            const base64Data = imagePreview.split(',')[1];
+
+            const response = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    requests: [
+                        {
+                            image: { content: base64Data },
+                            features: [{ type: 'TEXT_DETECTION' }],
+                        },
+                    ],
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || 'Google Vision APIエラー');
+            }
+
+            setProgress(50);
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            const data = await response.json();
+            const textAnnotations = data.responses[0]?.textAnnotations;
+
+            if (!textAnnotations || textAnnotations.length === 0) {
+                throw new Error("画像からテキストを検出できませんでした");
+            }
+
+            const fullText = textAnnotations[0].description;
+            setOcrText(fullText);
+
+            console.log('🔍 OCR検出結果:', fullText.substring(0, 500) + '...');
+            console.log('📝 全テキスト長さ:', fullText.length, '文字');
+
+            setProgress(75);
+
+            // サーバーサイドAPIを呼び出し
+            const parseResponse = await fetch('/api/parse-recipe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: fullText }),
+            });
+
+            if (!parseResponse.ok) {
+                throw new Error('レシピ解析に失敗しました');
+            }
+
+            const recipeData = await parseResponse.json();
+
+            console.log('📋 解析結果:', recipeData);
+            console.log('✅ 抽出件数:', {
+                タイトル: recipeData.title ? '1' : '0',
+                材料: recipeData.ingredients?.length || 0,
+                手順: recipeData.steps?.length || 0,
+                カテゴリ: recipeData.category ? '1' : '0'
+            });
+
+            setParsedRecipe(recipeData);
+
+            // フォームにデータを入力
+            if (recipeData.title) setForm(prev => ({ ...prev, title: recipeData.title }));
+            if (recipeData.servings) setForm(prev => ({ ...prev, servings: recipeData.servings }));
+            if (recipeData.category) setForm(prev => ({ ...prev, category: recipeData.category }));
+            if (recipeData.tags) setTags(recipeData.tags);
+
+            if (recipeData.ingredients && recipeData.ingredients.length > 0) {
+                const newIngredients = recipeData.ingredients.map((ing: any) => ({
+                    name: ing.name,
+                    amount: ing.amount
+                }));
+                while (newIngredients.length < 3) {
+                    newIngredients.push({ name: "", amount: "" });
+                }
+                setIngredients(newIngredients);
+            }
+
+            if (recipeData.steps && recipeData.steps.length > 0) {
+                const newSteps = recipeData.steps.map((step: string, idx: number) => ({
+                    step_number: idx + 1,
+                    instruction: step
+                }));
+                setSteps(newSteps);
+            }
+
+            setProgress(100);
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : "解析に失敗しました";
+            setError(errorMessage);
+            console.error(err);
+        } finally {
+            setAnalyzing(false);
         }
     };
 
@@ -92,7 +287,6 @@ export default function NewRecipePage() {
                 );
             }
 
-            // タグ
             for (const tagName of tags) {
                 let { data: tag } = await supabase.from("tags").select("id").eq("name", tagName).single();
                 if (!tag) {
@@ -118,8 +312,8 @@ export default function NewRecipePage() {
             </Link>
 
             <div className="page-header">
-                <h1 className="page-title">✏️ レシピを手動入力</h1>
-                <p className="page-subtitle">オリジナルレシピや SNS で見つけたレシピを記録する</p>
+                <h1 className="page-title">📸 レシピスクリーンショットで入力</h1>
+                <p className="page-subtitle">Google Cloud Vision APIが画像からレシピを自動抽出します</p>
             </div>
 
             {error && (
@@ -127,6 +321,120 @@ export default function NewRecipePage() {
                     ⚠️ {error}
                 </div>
             )}
+
+            {/* 画像アップロード */}
+            <div className="glass-card" style={{ padding: 24, marginBottom: 20 }}>
+                <h3 style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 16 }}>画像アップロード</h3>
+
+                {!imagePreview ? (
+                    <div
+                        style={{
+                            border: "2px dashed var(--border)",
+                            borderRadius: 12,
+                            padding: 40,
+                            textAlign: "center",
+                            cursor: "pointer",
+                            transition: "all 0.3s",
+                        }}
+                        onClick={() => document.getElementById('image-input')?.click()}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = "var(--accent-orange)";
+                            e.currentTarget.style.background = "rgba(249, 115, 22, 0.05)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = "var(--border)";
+                            e.currentTarget.style.background = "transparent";
+                        }}
+                    >
+                        <div style={{ fontSize: "3rem", marginBottom: 12 }}>📸</div>
+                        <p style={{ fontSize: "0.95rem", color: "var(--text-primary)", marginBottom: 8 }}>
+                            レシピのスクリーンショットをドラッグ&ドロップ
+                        </p>
+                        <p style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                            またはクリックして選択（10MB以下推奨）
+                        </p>
+                        <input
+                            id="image-input"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageSelect}
+                            style={{ display: "none" }}
+                        />
+                    </div>
+                ) : (
+                    <div>
+                        <img
+                            src={imagePreview}
+                            alt="Preview"
+                            style={{
+                                width: "100%",
+                                borderRadius: 12,
+                                marginBottom: 16,
+                                maxHeight: 300,
+                                objectFit: "contain",
+                                background: "var(--bg-secondary)"
+                            }}
+                        />
+                        <div style={{ display: "flex", gap: 12, marginBottom: 12 }}>
+                            <button
+                                onClick={analyzeImage}
+                                disabled={analyzing}
+                                className="btn-primary"
+                                style={{ flex: 1, justifyContent: "center" }}
+                            >
+                                {analyzing ? (
+                                    <span>
+                                        <span className="spinner" style={{ width: 16, height: 16, marginRight: 8, borderWidth: 2 }}></span>
+                                        解析中... ({progress}%)
+                                    </span>
+                                ) : (
+                                    "🔍 Google OCRで解析"
+                                )}
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setImageFile(null);
+                                    setImagePreview("");
+                                    setOcrText("");
+                                    setParsedRecipe(null);
+                                    setProgress(0);
+                                }}
+                                className="btn-secondary"
+                                style={{ justifyContent: "center" }}
+                            >
+                                ✕ キャンセル
+                            </button>
+                        </div>
+
+                        {analyzing && (
+                            <div style={{
+                                width: "100%",
+                                height: 6,
+                                background: "var(--bg-secondary)",
+                                borderRadius: 3,
+                                overflow: "hidden"
+                            }}>
+                                <div style={{
+                                    width: `${progress}%`,
+                                    height: "100%",
+                                    background: "linear-gradient(90deg, var(--accent-orange), var(--accent-amber))",
+                                    transition: "width 0.3s ease"
+                                }} />
+                            </div>
+                        )}
+
+                        {/* OCR結果と解析結果の表示 */}
+                        {ocrText && (
+                            <div style={{ marginTop: 16, padding: 16, background: "var(--bg-secondary)", borderRadius: 8 }}>
+                                <h4 style={{ fontSize: "0.8rem", color: "var(--text-secondary)", marginBottom: 8 }}>🔍 OCR検出結果</h4>
+                                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", maxHeight: 100, overflowY: "auto", whiteSpace: "pre-wrap" }}>
+                                    {ocrText.substring(0, 500)}{ocrText.length > 500 ? '...' : ''}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
 
             {/* 基本情報 */}
             <div className="glass-card" style={{ padding: 24, marginBottom: 20 }}>
