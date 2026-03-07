@@ -31,7 +31,8 @@ interface Step {
 }
 
 interface Tag {
-    tags: { id: string; name: string };
+    id: string;
+    name: string;
 }
 
 export default function RecipeDetailPage() {
@@ -57,7 +58,9 @@ export default function RecipeDetailPage() {
             supabase.from("recipes").select("*").eq("id", id).single(),
             supabase.from("ingredients").select("*").eq("recipe_id", id).order("order_index"),
             supabase.from("steps").select("*").eq("recipe_id", id).order("step_number"),
-            supabase.from("recipe_tags").select("tags(id, name)").eq("recipe_id", id),
+            supabase.from("recipe_tags")
+              .select("tags(id,name)")
+              .eq("recipe_id", id),
         ]);
 
         if (recipeRes.data) {
@@ -67,7 +70,8 @@ export default function RecipeDetailPage() {
         if (ingRes.data) setIngredients(ingRes.data);
         if (stepRes.data) setSteps(stepRes.data);
         if (tagRes.data) {
-            setTags(tagRes.data.map((rt: Tag) => rt.tags).filter(Boolean));
+            const flattenedTags = tagRes.data.map((item: { tags: Tag[] }) => item.tags).flat();
+            setTags(flattenedTags.filter(Boolean));
         }
         setLoading(false);
     };

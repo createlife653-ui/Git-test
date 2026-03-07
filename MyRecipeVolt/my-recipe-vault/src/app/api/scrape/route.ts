@@ -171,9 +171,9 @@ export async function POST(req: NextRequest) {
                 : String(yieldRaw || "");
 
             // 材料
-            const rawIngredients = jsonLd["recipeIngredient"];
+            const rawIngredients = jsonLd["recipeIngredient"] as unknown[];
             if (Array.isArray(rawIngredients)) {
-                recipe.ingredients = rawIngredients.map((ing: string) => {
+                recipe.ingredients = rawIngredients.map((ing: unknown) => {
                     if (typeof ing !== "string") return { amount: "", name: String(ing) };
                     // 「大さじ2 醤油」のような形式を分割
                     const match = ing.match(/^([\d./]+\s*[^\s]{1,6})\s+(.+)$/);
@@ -183,7 +183,7 @@ export async function POST(req: NextRequest) {
             }
 
             // 手順
-            const rawInstructions = jsonLd["recipeInstructions"];
+            const rawInstructions = jsonLd["recipeInstructions"] as unknown[];
             if (Array.isArray(rawInstructions)) {
                 rawInstructions.forEach((step: unknown, i: number) => {
                     if (typeof step === "string") {
