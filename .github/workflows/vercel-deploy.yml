@@ -17,10 +17,10 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm ci
+        run: cd MyRecipeVolt/my-recipe-vault && npm ci
 
       - name: Build Next.js app
-        run: npm run build
+        run: cd MyRecipeVolt/my-recipe-vault && npm run build
 
       - name: Check Vercel secrets
         run: |
