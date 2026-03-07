@@ -7,35 +7,35 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
 };
 
-// PWA設定（一時的に無効化 - Next.js 16との互換性問題により）
-// const withPWA = require("next-pwa")({
-//   dest: "public",
-//   register: true,
-//   skipWaiting: true,
-//   runtimeCaching: [
-//     {
-//       urlPattern: /^https:\/\/.*\.supabase\.co\/.*/,
-//       handler: "NetworkFirst",
-//       options: {
-//         cacheName: "supabase-cache",
-//         expiration: {
-//           maxEntries: 50,
-//           maxAgeSeconds: 30 * 24 * 60 * 60, // 30日
-//         },
-//       },
-//     },
-//     {
-//       urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
-//       handler: "CacheFirst",
-//       options: {
-//         cacheName: "images-cache",
-//         expiration: {
-//           maxEntries: 100,
-//           maxAgeSeconds: 60 * 60 * 24 * 30, // 30日
-//         },
-//       },
-//     },
-//   ],
-// });
+// PWA設定
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/.*\.supabase\.co\/.*/,
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "supabase-cache",
+        expiration: {
+          maxEntries: 50,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30日
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "images-cache",
+        expiration: {
+          maxEntries: 100,
+          maxAgeSeconds: 60 * 60 * 24 * 30, // 30日
+        },
+      },
+    },
+  ],
+});
 
-export default nextConfig;
+export default withPWA(nextConfig);
