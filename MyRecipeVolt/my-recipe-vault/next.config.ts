@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   // パフォーマンス向上のための設定
   compress: true,
   poweredByHeader: false,
+  // Turbopackとの競合を回避するため空のturbopack設定
+  turbopack: {},
+  // Turbopackとの競合を回避するためwebpackを使用
+  webpack: (config, { isServer }) => {
+    return config;
+  },
 };
 
 // PWA設定
