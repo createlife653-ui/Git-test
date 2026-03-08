@@ -15,7 +15,7 @@
 
 # next.js
 /.next/
-/my-recipe-vault/.next/
+/my-recipe-vault/
 /out/
 
 # production
