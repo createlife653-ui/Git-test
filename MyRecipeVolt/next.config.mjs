@@ -1,6 +1,4 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+const nextConfig = {
   // パフォーマンス向上のための設定
   compress: true,
   poweredByHeader: false,
