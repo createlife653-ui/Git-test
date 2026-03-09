@@ -355,6 +355,86 @@ export async function POST(req: NextRequest) {
             });
         }
 
+        // === Nadia (oceans-nadia.com) 専用パーサー ===
+        if (url.includes("oceans-nadia.com") && recipe.ingredients.length === 0) {
+            // 材料セクションの探索 - 「材料」を含む見出しの後のリストを探す
+            const ingredientHeaders = $("h1, h2, h3, h4, h5, h6").filter((_, el) => {
+                return $(el).text().includes("材料");
+            });
+
+            for (let i = 0; i < ingredientHeaders.length; i++) {
+                const $header = $(ingredientHeaders[i]);
+                // 次の要素または兄弟要素からリストを探す
+                let $list = $header.next("ul, ol").first();
+                if ($list.length === 0) {
+                    // 直接の兄弟にない場合、次の要素を探索
+                    $list = $header.nextAll("ul, ol").first();
+                }
+                if ($list.length === 0) {
+                    // 子要素の中を探索
+                    $list = $header.parent().find("ul, ol").first();
+                }
+
+                if ($list.length) {
+                    $list.find("> li").each((_, el) => {
+                        const text = $(el).text().trim();
+                        if (!text) return;
+
+                        // 材料名と数量の分割
+                        let name = text;
+                        let amount = "";
+
+                        // 複数行や複数スペースで分割
+                        const lines = text.split(/\n/);
+                        if (lines.length >= 2) {
+                            name = lines[0].trim();
+                            amount = lines.slice(1).map(l => l.trim()).join(" ");
+                        } else if (text.match(/^\S+[\s　]+\S+/)) {
+                            // 全角スペースまたは半角スペースで分割
+                            const match = text.match(/^(\S+)[\s　]+(.+)$/);
+                            if (match) {
+                                name = match[1].trim();
+                                amount = match[2].trim();
+                            }
+                        }
+
+                        if (name) {
+                            recipe.ingredients.push({ name, amount });
+                        }
+                    });
+                    if (recipe.ingredients.length > 0) break;
+                }
+            }
+
+            // 作り方セクションの探索 - 「作り方」または「つくり方」を含む見出しの後のリストを探す
+            const stepHeaders = $("h1, h2, h3, h4, h5, h6").filter((_, el) => {
+                const text = $(el).text();
+                return text.includes("作り方") || text.includes("つくり方");
+            });
+
+            for (let i = 0; i < stepHeaders.length; i++) {
+                const $header = $(stepHeaders[i]);
+                // 次の要素または兄弟要素からリストを探す
+                let $list = $header.next("ol, ul").first();
+                if ($list.length === 0) {
+                    $list = $header.nextAll("ol, ul").first();
+                }
+                if ($list.length === 0) {
+                    $list = $header.parent().find("ol, ul").first();
+                }
+
+                if ($list.length) {
+                    $list.find("> li").each((i, el) => {
+                        const text = $(el).text().trim();
+                        if (text && text.length > 5) {
+                            recipe.steps.push({ step_number: i + 1, instruction: text });
+                        }
+                    });
+                    if (recipe.steps.length > 0) break;
+                }
+            }
+        }
+
         if (!recipe.title || recipe.title === "タイトル不明") {
             recipe.title = "タイトルが取得できませんでした";
         }
