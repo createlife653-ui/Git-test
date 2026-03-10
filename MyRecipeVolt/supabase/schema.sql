@@ -67,3 +67,25 @@ BEGIN
     ALTER TABLE recipes ADD COLUMN category text;
   END IF;
 END $$;
+
+-- 既存のテーブルにservings_countカラムを追加（人数を数値として保存）
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'recipes' AND column_name = 'servings_count'
+  ) THEN
+    ALTER TABLE recipes ADD COLUMN servings_count int;
+  END IF;
+END $$;
+
+-- ユーザー設定テーブル
+CREATE TABLE IF NOT EXISTS user_settings (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  default_servings_count int DEFAULT 2,
+  updated_at timestamptz DEFAULT now()
+);
+
+-- Row Level Security
+ALTER TABLE user_settings ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow all" ON user_settings FOR ALL USING (true) WITH CHECK (true);

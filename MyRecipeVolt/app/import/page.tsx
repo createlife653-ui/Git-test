@@ -19,11 +19,40 @@ interface ParsedRecipe {
     title: string;
     image_url: string;
     servings: string;
+    servings_count: number | null;
     category: string;
     ingredients: { name: string; amount: string }[];
     steps: { step_number: number; instruction: string }[];
     source_url: string;
 }
+
+// 人数解析関数
+const parseServingsCount = (servingsText: string | undefined): { count: number | null; originalText: string } => {
+    if (!servingsText) {
+        return { count: null, originalText: "" };
+    }
+
+    // パターンマッチングで数値を抽出
+    const patterns = [
+        /(\d+)\s*人分/,           // "2人分", " 2 人分 "
+        /(\d+)\s*人前/,           // "2人前"
+        /(\d+)\s* servings?/i,    // "2 servings", "2 serving"
+        /(\d+)\s*portions?/i,     // "2 portions"
+        /(\d+)\s*人/,             // "2人"
+    ];
+
+    for (const pattern of patterns) {
+        const match = servingsText.match(pattern);
+        if (match) {
+            const count = parseInt(match[1], 10);
+            if (count > 0 && count <= 100) { // 妥当な範囲内かチェック
+                return { count, originalText: servingsText };
+            }
+        }
+    }
+
+    return { count: null, originalText: servingsText };
+};
 
 export default function ImportPage() {
     const router = useRouter();
@@ -61,7 +90,12 @@ export default function ImportPage() {
                 return;
             }
 
-            setRecipe(data.recipe);
+            // 人数解析
+            const parsedServings = parseServingsCount(data.recipe.servings);
+            setRecipe({
+                ...data.recipe,
+                servings_count: parsedServings.count,
+            });
         } catch (err: unknown) {
             if (err instanceof TypeError && err.message === "Failed to fetch") {
                 setError("サーバーへの接続に失敗しました。開発サーバーが起動しているか確認してください。");
@@ -86,6 +120,7 @@ export default function ImportPage() {
                     source_url: recipe.source_url,
                     image_url: recipe.image_url || null,
                     servings: recipe.servings || null,
+                    servings_count: recipe.servings_count || null,
                     category: recipe.category || null,
                 })
                 .select()
@@ -356,9 +391,9 @@ export default function ImportPage() {
                                         placeholder="https://..."
                                     />
                                 </div>
-                                {/* 分量 */}
+                                {/* 分量テキスト */}
                                 <div>
-                                    <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: 6 }}>分量・人数</label>
+                                    <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: 6 }}>分量テキスト</label>
                                     <input
                                         type="text"
                                         className="input-field"
@@ -367,6 +402,154 @@ export default function ImportPage() {
                                         placeholder="例: 2人前"
                                     />
                                 </div>
+                            </div>
+
+                            {/* 人数（数値） */}
+                            <div>
+                                <label style={{ display: "block", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: 6 }}>人数（何人分のレシピか）</label>
+                                {recipe.servings && recipe.servings_count !== null ? (
+                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const newCount = Math.max(1, (recipe.servings_count || 1) - 1);
+                                                    setRecipe({
+                                                        ...recipe,
+                                                        servings_count: newCount,
+                                                        servings: `${newCount}人分`,
+                                                    });
+                                                }}
+                                                style={{
+                                                    width: 32, height: 32,
+                                                    border: "1px solid var(--border)",
+                                                    background: "var(--card-bg)",
+                                                    borderRadius: 6,
+                                                    cursor: "pointer",
+                                                    fontSize: "1.2rem",
+                                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                                }}
+                                            >
+                                                −
+                                            </button>
+                                            <input
+                                                type="number"
+                                                min="1"
+                                                max="100"
+                                                value={recipe.servings_count}
+                                                onChange={(e) => {
+                                                    const val = parseInt(e.target.value, 10);
+                                                    setRecipe({
+                                                        ...recipe,
+                                                        servings_count: val > 0 ? val : 1,
+                                                        servings: `${val > 0 ? val : 1}人分`,
+                                                    });
+                                                }}
+                                                style={{
+                                                    width: 80, padding: "8px",
+                                                    border: "1px solid var(--border)",
+                                                    borderRadius: 6,
+                                                    background: "var(--card-bg)",
+                                                    color: "var(--text-primary)",
+                                                    fontSize: "1rem",
+                                                    textAlign: "center",
+                                                }}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const newCount = Math.min(100, (recipe.servings_count || 1) + 1);
+                                                    setRecipe({
+                                                        ...recipe,
+                                                        servings_count: newCount,
+                                                        servings: `${newCount}人分`,
+                                                    });
+                                                }}
+                                                style={{
+                                                    width: 32, height: 32,
+                                                    border: "1px solid var(--border)",
+                                                    background: "var(--card-bg)",
+                                                    borderRadius: 6,
+                                                    cursor: "pointer",
+                                                    fontSize: "1.2rem",
+                                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                                }}
+                                            >
+                                                ＋
+                                            </button>
+                                            <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>人分</span>
+                                        </div>
+                                        <span style={{ fontSize: "0.8rem", color: "var(--accent-primary)", fontWeight: 500 }}>
+                                            ✓ 解析に成功しました
+                                        </span>
+                                    </div>
+                                ) : recipe.servings ? (
+                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                                            <input
+                                                type="number"
+                                                min="1"
+                                                max="100"
+                                                placeholder="1"
+                                                value={recipe.servings_count || ""}
+                                                onChange={(e) => {
+                                                    const val = parseInt(e.target.value, 10);
+                                                    setRecipe({
+                                                        ...recipe,
+                                                        servings_count: val > 0 ? val : 1,
+                                                        servings: val > 0 ? `${val}人分` : recipe.servings,
+                                                    });
+                                                }}
+                                                style={{
+                                                    width: 80, padding: "8px",
+                                                    border: "1px solid var(--border)",
+                                                    borderRadius: 6,
+                                                    background: "var(--card-bg)",
+                                                    color: "var(--text-primary)",
+                                                    fontSize: "1rem",
+                                                    textAlign: "center",
+                                                }}
+                                            />
+                                            <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>人分</span>
+                                        </div>
+                                        <span style={{ fontSize: "0.8rem", color: "var(--accent-orange)", fontWeight: 500 }}>
+                                            ⚠️ 人数の解析に失敗しました。手動で入力してください
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                                            <input
+                                                type="number"
+                                                min="1"
+                                                max="100"
+                                                placeholder="2"
+                                                value={recipe.servings_count || ""}
+                                                onChange={(e) => {
+                                                    const val = parseInt(e.target.value, 10);
+                                                    setRecipe({
+                                                        ...recipe,
+                                                        servings_count: val > 0 ? val : 2,
+                                                        servings: val > 0 ? `${val}人分` : "",
+                                                    });
+                                                }}
+                                                style={{
+                                                    width: 80, padding: "8px",
+                                                    border: "1px solid var(--border)",
+                                                    borderRadius: 6,
+                                                    background: "var(--card-bg)",
+                                                    color: "var(--text-primary)",
+                                                    fontSize: "1rem",
+                                                    textAlign: "center",
+                                                }}
+                                            />
+                                            <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>人分</span>
+                                        </div>
+                                        <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                                            ※ 入力すると材料の分量を調整できるようになります
+                                        </span>
+                                    </div>
+                                )}
                             </div>
 
                             {/* 画像プレビュー */}

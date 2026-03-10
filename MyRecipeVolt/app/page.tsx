@@ -87,9 +87,14 @@ export default function HomePage() {
   return (
     <main className="page-container">
       {/* ヘッダー */}
-      <div className="page-header">
-        <h1 className="page-title">📚 マイ・レシピ・ヴォルト</h1>
-        <p className="page-subtitle">制限なし・広告なし。あなただけのレシピ帳</p>
+      <div className="page-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+        <div>
+          <h1 className="page-title" style={{ marginBottom: 4 }}>📚 マイ・レシピ・ヴォルト</h1>
+          <p className="page-subtitle">制限なし・広告なし。あなただけのレシピ帳</p>
+        </div>
+        <Link href="/settings" className="btn-ghost" title="設定">
+          ⚙️ 設定
+        </Link>
       </div>
 
       {/* 検索バー */}

@@ -9,6 +9,8 @@
   --bg-secondary: #18181f;
   --bg-card: #1e1e28;
   --bg-card-hover: #252533;
+  --accent-primary: #f97316;
+  --accent-primary-rgb: 249, 115, 22;
   --accent-orange: #f97316;
   --accent-amber: #f59e0b;
   --accent-red: #ef4444;
@@ -16,6 +18,7 @@
   --text-secondary: #9d9baf;
   --text-muted: #6b6880;
   --border: rgba(255, 255, 255, 0.08);
+  --border-color: rgba(255, 255, 255, 0.08);
   --border-accent: rgba(249, 115, 22, 0.3);
   --glass: rgba(255, 255, 255, 0.04);
   --glass-hover: rgba(255, 255, 255, 0.07);
@@ -155,6 +158,17 @@ body {
   .checkbox-item {
     min-height: 48px;
     min-width: 48px;
+  }
+
+  /* レシピ入力ページのカテゴリボタン */
+  button[style*="padding: 8px 12px"] {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding: 10px 14px !important;
+  }
+
+  button[style*="padding: 8px 12px"] span {
+    font-size: 0.9rem !important;
   }
 }
 
@@ -714,6 +728,30 @@ textarea.input-field {
     width: 100%;
     justify-content: center;
   }
+
+  /* レシピ入力ページのカテゴリエリア改善 */
+  .glass-card[style*="padding: 24px"] {
+    padding: 16px !important;
+  }
+
+  /* カテゴリボタンのコンテナをスクロール可能に */
+  .glass-card[style*="padding: 24px"] > div[style*="display: flex"] {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+
+  .glass-card[style*="padding: 24px"] > div[style*="display: flex"]::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 2カラムレイアウトを1カラムに変更 */
+  div[style*="gridTemplateColumns: 1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -737,6 +775,23 @@ textarea.input-field {
 
   .category-pill-label {
     font-size: 0.7rem;
+  }
+
+  /* レシピ入力ページのカテゴリボタンをさらに見やすく */
+  button[style*="padding: 8px 12px"] {
+    min-width: 70px !important;
+    padding: 8px 10px !important;
+    font-size: 0.75rem !important;
+  }
+
+  button[style*="padding: 8px 12px"] span:last-child {
+    font-size: 0.7rem !important;
+  }
+
+  /* カテゴリ解除ボタンのスタイル改善 */
+  button[style*="padding: 4px 8px"] {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
   }
 }
 

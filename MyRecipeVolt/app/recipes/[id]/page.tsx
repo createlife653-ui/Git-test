@@ -11,6 +11,7 @@ interface Recipe {
     image_url: string | null;
     source_url: string | null;
     servings: string | null;
+    servings_count: number | null;
     category: string | null;
     note: string | null;
     is_favorite: boolean;
@@ -48,6 +49,7 @@ export default function RecipeDetailPage() {
     const [noteSaving, setNoteSaving] = useState(false);
     const [noteSaved, setNoteSaved] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [currentServings, setCurrentServings] = useState<number>(2);
 
     useEffect(() => {
         if (id) fetchAll();
@@ -66,6 +68,8 @@ export default function RecipeDetailPage() {
         if (recipeRes.data) {
             setRecipe(recipeRes.data);
             setNote(recipeRes.data.note || "");
+            // 人数設定（基準人数がある場合はそれを使用、ない場合はデフォルト2）
+            setCurrentServings(recipeRes.data.servings_count || 2);
         }
         if (ingRes.data) setIngredients(ingRes.data);
         if (stepRes.data) setSteps(stepRes.data);
@@ -74,6 +78,41 @@ export default function RecipeDetailPage() {
             setTags(flattenedTags.filter(Boolean));
         }
         setLoading(false);
+    };
+
+    // 材料の分量を計算する関数
+    const calculateAmount = (originalAmount: string | null, ratio: number): string => {
+        if (!originalAmount || !recipe?.servings_count) return originalAmount || "";
+
+        // 数値を抽出して計算
+        const patterns = [
+            // 数値+単位パターン
+            /(\d+(?:\.\d+)?)\s*([大中小]さじ|カップ|本|枚|個|切れ|片|束|わ|グラム|g|cc|ml|リットル|L|ml|g)/gi,
+            // 丸括弧内の数値
+            /\((\d+(?:\.\d+)?)\)/g,
+            // 単純な数値
+            /^(\d+(?:\.\d+)?)$/,
+        ];
+
+        let result = originalAmount;
+
+        // 各パターンで置換
+        for (const pattern of patterns) {
+            result = result.replace(pattern, (match, numStr, unit = "") => {
+                const num = parseFloat(numStr);
+                if (isNaN(num)) return match;
+                const calculated = Math.round(num * ratio * 100) / 100; // 小数第2位で丸める
+                return `${calculated}${unit}`;
+            });
+        }
+
+        return result;
+    };
+
+    // 現在の人数に応じた比率を計算
+    const getServingsRatio = () => {
+        if (!recipe?.servings_count) return 1;
+        return currentServings / recipe.servings_count;
     };
 
     const toggleFavorite = async () => {
@@ -199,6 +238,61 @@ export default function RecipeDetailPage() {
 
             <div className="section-divider" />
 
+            {/* 人数調整UI */}
+            {recipe.servings_count && (
+                <div className="glass-card" style={{ padding: "16px 20px", marginBottom: 24 }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                            <span style={{ fontSize: "0.9rem", color: "var(--text-secondary)", fontWeight: 600 }}>👤 作りたい人数</span>
+                            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                                <button
+                                    onClick={() => setCurrentServings(Math.max(1, currentServings - 1))}
+                                    style={{
+                                        width: 32, height: 32,
+                                        border: "1px solid var(--border)",
+                                        background: "var(--card-bg)",
+                                        borderRadius: 6,
+                                        cursor: "pointer",
+                                        fontSize: "1.2rem",
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                    }}
+                                >
+                                    −
+                                </button>
+                                <span style={{
+                                    fontSize: "1.1rem", fontWeight: 600,
+                                    minWidth: 40, textAlign: "center",
+                                    color: "var(--text-primary)"
+                                }}>
+                                    {currentServings}
+                                </span>
+                                <button
+                                    onClick={() => setCurrentServings(Math.min(100, currentServings + 1))}
+                                    style={{
+                                        width: 32, height: 32,
+                                        border: "1px solid var(--border)",
+                                        background: "var(--card-bg)",
+                                        borderRadius: 6,
+                                        cursor: "pointer",
+                                        fontSize: "1.2rem",
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                    }}
+                                >
+                                    ＋
+                                </button>
+                                <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>人分</span>
+                            </div>
+                            <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+                                （元のレシピ: {recipe.servings_count}人分）
+                            </span>
+                        </div>
+                        <div style={{ fontSize: "0.8rem", color: "var(--accent-primary)", fontWeight: 500 }}>
+                            材料の分量が自動的に調整されます
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* 材料 */}
             {ingredients.length > 0 && (
                 <section style={{ marginBottom: 32 }}>
@@ -209,23 +303,27 @@ export default function RecipeDetailPage() {
                         </span>
                     </h2>
                     <div className="glass-card" style={{ padding: "8px 20px" }}>
-                        {ingredients.map((ing) => (
-                            <label
-                                key={ing.id}
-                                className={`checkbox-item ${checkedIngredients.has(ing.id) ? "checked" : ""}`}
-                                style={{ cursor: "pointer" }}
-                            >
-                                <input
-                                    type="checkbox"
-                                    checked={checkedIngredients.has(ing.id)}
-                                    onChange={() => toggleIngredient(ing.id)}
-                                />
-                                <span style={{ color: "var(--text-secondary)", minWidth: 80, fontSize: "0.9rem" }}>
-                                    {ing.amount || ""}
-                                </span>
-                                <span style={{ fontWeight: 500 }}>{ing.name}</span>
-                            </label>
-                        ))}
+                        {ingredients.map((ing) => {
+                            const ratio = getServingsRatio();
+                            const calculatedAmount = calculateAmount(ing.amount, ratio);
+                            return (
+                                <label
+                                    key={ing.id}
+                                    className={`checkbox-item ${checkedIngredients.has(ing.id) ? "checked" : ""}`}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={checkedIngredients.has(ing.id)}
+                                        onChange={() => toggleIngredient(ing.id)}
+                                    />
+                                    <span style={{ color: "var(--text-secondary)", minWidth: 80, fontSize: "0.9rem" }}>
+                                        {calculatedAmount || ""}
+                                    </span>
+                                    <span style={{ fontWeight: 500 }}>{ing.name}</span>
+                                </label>
+                            );
+                        })}
                     </div>
                 </section>
             )}
@@ -269,6 +367,13 @@ export default function RecipeDetailPage() {
                     </button>
                 </div>
             </section>
+
+            {/* 設定へのリンク */}
+            <div style={{ textAlign: "center", marginBottom: 40 }}>
+                <Link href="/settings" className="btn-ghost" style={{ fontSize: "0.9rem" }}>
+                    ⚙️ デフォルト設定を変更
+                </Link>
+            </div>
         </main>
     );
 }
