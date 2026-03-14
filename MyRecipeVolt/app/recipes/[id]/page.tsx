@@ -378,10 +378,10 @@ export default function RecipeDetailPage() {
                 </div>
             </section>
 
-            {/* 設定へのリンク */}
+            {/* ナビゲーション */}
             <div style={{ textAlign: "center", marginBottom: 40 }}>
-                <Link href="/settings" className="btn-ghost" style={{ fontSize: "0.9rem" }}>
-                    ⚙️ デフォルト設定を変更
+                <Link href="/" className="btn-ghost" style={{ fontSize: "0.9rem" }}>
+                    ← トップに戻る
                 </Link>
             </div>
         </main>

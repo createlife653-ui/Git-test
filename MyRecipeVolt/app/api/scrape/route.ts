@@ -258,6 +258,25 @@ export async function POST(req: NextRequest) {
                 const text = $(el).text().trim();
                 if (!text) return;
 
+                // 余計なテキストを除外するフィルタ
+                // 1. 更新情報や注記を除外
+                const excludePatterns = [
+                    /レシピ更新情報/,
+                    /工程中の材料/,
+                    /リライト/,
+                ];
+                for (const pattern of excludePatterns) {
+                    if (pattern.test(text)) return;
+                }
+
+                // 2. 説明文のような長いテキストを除外（50文字以上）
+                if (text.length > 50) {
+                    // 「は」「〜ても美味しい」などの説明文を除外
+                    if (text.includes("は") && (text.includes("美味しい") || text.includes("おすすめ") || text.includes("その他の類"))) {
+                        return;
+                    }
+                }
+
                 // 「大根　…　600ｇ」のような形式を分割
                 let name = text;
                 let amount = "";
@@ -275,8 +294,41 @@ export async function POST(req: NextRequest) {
                     name = linkText;
                 }
 
-                if (name && !name.startsWith("※")) {
+                // 3. 数量のみで材料名がないものを除外
+                const quantityOnlyPatterns = [
+                    /^量\(大さじ/,
+                    /^量\(/,
+                    /^大さじ\d+$/,
+                    /^小さじ\d+$/,
+                    /^\d+ｇ$/,
+                    /^\d+ml$/,
+                ];
+                for (const pattern of quantityOnlyPatterns) {
+                    if (pattern.test(name)) return;
+                }
+
+                // 4. ※で始まるものを除外
+                if (name.startsWith("※")) return;
+
+                // 5. 有効な材料のみ追加
+                if (name && name.length > 0 && name.length < 30) {
                     recipe.ingredients.push({ name, amount });
+                }
+
+                // 作り方の手順として扱う可能性のあるテキストを追加
+                // 「仕上げに」「生姜の風味」「とろみをつける前」などのテキストは作り方として扱う
+                const cookingPatterns = [
+                    /仕上げに/,
+                    /生姜の風味/,
+                    /とろみをつける前/,
+                    /生姜のしぼり汁/,
+                    /おろし/,
+                ];
+                for (const pattern of cookingPatterns) {
+                    if (pattern.test(text)) {
+                        recipe.steps.push({ step_number: recipe.steps.length + 1, instruction: text });
+                        break;
+                    }
                 }
             });
 
