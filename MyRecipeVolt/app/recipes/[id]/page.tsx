@@ -84,27 +84,37 @@ export default function RecipeDetailPage() {
     const calculateAmount = (originalAmount: string | null, ratio: number): string => {
         if (!originalAmount || !recipe?.servings_count) return originalAmount || "";
 
-        // 数値を抽出して計算
-        const patterns = [
-            // 数値+単位パターン
-            /(\d+(?:\.\d+)?)\s*([大中小]さじ|カップ|本|枚|個|切れ|片|束|わ|グラム|g|cc|ml|リットル|L|ml|g)/gi,
-            // 丸括弧内の数値
-            /\((\d+(?:\.\d+)?)\)/g,
-            // 単純な数値
-            /^(\d+(?:\.\d+)?)$/,
-        ];
-
         let result = originalAmount;
 
-        // 各パターンで置換
-        for (const pattern of patterns) {
-            result = result.replace(pattern, (match, numStr, unit = "") => {
+        // 数値+単位パターン（最初に処理）
+        result = result.replace(/(\d+(?:\.\d+)?)\s*([大中小]さじ|カップ|本|枚|個|切れ|片|束|わ|グラム|g|cc|ml|リットル|L)/gi,
+            (match, numStr, unit) => {
                 const num = parseFloat(numStr);
                 if (isNaN(num)) return match;
-                const calculated = Math.round(num * ratio * 100) / 100; // 小数第2位で丸める
+                const calculated = Math.round(num * ratio * 100) / 100;
                 return `${calculated}${unit}`;
-            });
-        }
+            }
+        );
+
+        // 丸括弧内の数値
+        result = result.replace(/\((\d+(?:\.\d+)?)\)/g,
+            (match, numStr) => {
+                const num = parseFloat(numStr);
+                if (isNaN(num)) return match;
+                const calculated = Math.round(num * ratio * 100) / 100;
+                return `(${calculated})`;
+            }
+        );
+
+        // 単純な数値（最後に処理、他のパターンにマッチしなかった場合のみ）
+        result = result.replace(/^(\d+(?:\.\d+)?)$/,
+            (match, numStr) => {
+                const num = parseFloat(numStr);
+                if (isNaN(num)) return match;
+                const calculated = Math.round(num * ratio * 100) / 100;
+                return `${calculated}`;
+            }
+        );
 
         return result;
     };

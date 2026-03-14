@@ -16,15 +16,24 @@ export default function FavoritesPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        supabase
-            .from("recipes")
-            .select("id, title, image_url, created_at")
-            .eq("is_favorite", true)
-            .order("created_at", { ascending: false })
-            .then(({ data }) => {
+        const fetchFavorites = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from("recipes")
+                    .select("id, title, image_url, created_at")
+                    .eq("is_favorite", true)
+                    .order("created_at", { ascending: false });
+
+                if (error) throw error;
                 setRecipes(data || []);
                 setLoading(false);
-            });
+            } catch (error) {
+                console.error("お気に入り取得エラー:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchFavorites();
     }, []);
 
     return (
