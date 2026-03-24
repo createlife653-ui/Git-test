@@ -1,0 +1,2 @@
+requests>=2.31.0
+janome>=0.4.2
