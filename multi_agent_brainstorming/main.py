@@ -88,8 +88,8 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--turns", "-t",
         type=int,
-        default=12,
-        help="最大ターン数（デフォルト: 12）"
+        default=30,
+        help="最大ターン数（デフォルト: 30）"
     )
 
     parser.add_argument(
@@ -204,7 +204,12 @@ def main() -> int:
         if not args.quiet:
             print(f"\n[ターン {turn}] {message.agent_name}")
             print("-" * 50)
-            print(message.content[:200] + "..." if len(message.content) > 200 else message.content)
+            # 絵文字を除去して表示
+            import re
+            content = message.content[:200] + "..." if len(message.content) > 200 else message.content
+            # 絵文字と特殊文字を除去
+            content = re.sub(r'[^\w\s\-\.\,\!\?\:;\(\)\[\]\"\'\n\t\rあ-んア-ン一-鿐]', '', content)
+            print(content)
 
     # ブレインストーミング実行
     logger.info(f"ブレインストーミングを開始: {args.topic}")

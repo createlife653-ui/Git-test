@@ -47,7 +47,7 @@ class OllamaClient:
 
     DEFAULT_HOST = "localhost"
     DEFAULT_PORT = 11434
-    DEFAULT_TIMEOUT = 120
+    DEFAULT_TIMEOUT = 300  # 5分（日本語処理のため延長）
     DEFAULT_MAX_RETRIES = 3
     DEFAULT_RETRY_DELAY = 1.0
 

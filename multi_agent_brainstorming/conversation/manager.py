@@ -27,11 +27,13 @@ class ConversationConfig:
 
     Attributes:
         max_turns: 最大ターン数
+        min_turns: 最低ターン数（早期終了判定を行うまでのターン数）
         turn_selection_mode: ターン選択モード
         convergence_threshold: 収束判定の類似度閾値
         early_termination: 早期終了を有効にするか
     """
-    max_turns: int = 12
+    max_turns: int = 30
+    min_turns: int = 10
     turn_selection_mode: TurnSelectionMode = TurnSelectionMode.FACILITATOR_LED
     convergence_threshold: float = 0.75
     early_termination: bool = True
@@ -183,6 +185,10 @@ class ConversationManager:
             終了すべき場合はTrue
         """
         if not self.config.early_termination:
+            return False
+
+        # 最低ターン数に達していない場合は早期終了しない
+        if len(self.messages) < self.config.min_turns:
             return False
 
         # 収束チェック
