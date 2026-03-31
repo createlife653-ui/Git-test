@@ -64,6 +64,8 @@ export default function NewRecipePage() {
         setError("");
 
         try {
+            console.log("🔵 手動入力保存開始:", form);
+
             const { data: savedRecipe, error: recipeErr } = await supabase
                 .from("recipes")
                 .insert({
@@ -75,21 +77,29 @@ export default function NewRecipePage() {
                 })
                 .select()
                 .single();
-            if (recipeErr) throw recipeErr;
+            if (recipeErr) {
+                console.error("❌ レシピ保存エラー:", recipeErr);
+                throw recipeErr;
+            }
             const recipeId = savedRecipe.id;
+            console.log("✅ レシピ保存成功:", recipeId);
 
             const validIngredients = ingredients.filter((i) => i.name.trim());
             if (validIngredients.length > 0) {
+                console.log("🔵 材料保存開始:", validIngredients.length, "件");
                 await supabase.from("ingredients").insert(
                     validIngredients.map((ing, i) => ({ recipe_id: recipeId, name: ing.name, amount: ing.amount, order_index: i }))
                 );
+                console.log("✅ 材料保存成功");
             }
 
             const validSteps = steps.filter((s) => s.instruction.trim());
             if (validSteps.length > 0) {
+                console.log("🔵 手順保存開始:", validSteps.length, "件");
                 await supabase.from("steps").insert(
                     validSteps.map((s) => ({ recipe_id: recipeId, step_number: s.step_number, instruction: s.instruction }))
                 );
+                console.log("✅ 手順保存成功");
             }
 
             for (const tagName of tags) {
@@ -103,8 +113,10 @@ export default function NewRecipePage() {
                 }
             }
 
+            console.log("🎉 すべて保存完了、遷移します");
             router.push(`/recipes/${recipeId}`);
         } catch (err: unknown) {
+            console.error("💥 保存失敗:", err);
             setError(err instanceof Error ? err.message : "保存に失敗しました");
             setSaving(false);
         }

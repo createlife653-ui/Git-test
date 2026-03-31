@@ -112,6 +112,8 @@ export default function ImportPage() {
         setSaving(true);
 
         try {
+            console.log("🔵 保存開始:", recipe);
+
             // 1. レシピ本体を保存
             const { data: savedRecipe, error: recipeErr } = await supabase
                 .from("recipes")
@@ -126,11 +128,16 @@ export default function ImportPage() {
                 .select()
                 .single();
 
-            if (recipeErr) throw recipeErr;
+            if (recipeErr) {
+                console.error("❌ レシピ保存エラー:", recipeErr);
+                throw recipeErr;
+            }
             const recipeId = savedRecipe.id;
+            console.log("✅ レシピ保存成功:", recipeId);
 
             // 2. 材料を保存
             if (recipe.ingredients.length > 0) {
+                console.log("🔵 材料保存開始:", recipe.ingredients.length, "件");
                 const { error: ingErr } = await supabase.from("ingredients").insert(
                     recipe.ingredients.map((ing, i) => ({
                         recipe_id: recipeId,
@@ -139,11 +146,16 @@ export default function ImportPage() {
                         order_index: i,
                     }))
                 );
-                if (ingErr) throw ingErr;
+                if (ingErr) {
+                    console.error("❌ 材料保存エラー:", ingErr);
+                    throw ingErr;
+                }
+                console.log("✅ 材料保存成功");
             }
 
             // 3. 手順を保存
             if (recipe.steps.length > 0) {
+                console.log("🔵 手順保存開始:", recipe.steps.length, "件");
                 const { error: stepErr } = await supabase.from("steps").insert(
                     recipe.steps.map((s) => ({
                         recipe_id: recipeId,
@@ -151,11 +163,17 @@ export default function ImportPage() {
                         instruction: s.instruction,
                     }))
                 );
-                if (stepErr) throw stepErr;
+                if (stepErr) {
+                    console.error("❌ 手順保存エラー:", stepErr);
+                    throw stepErr;
+                }
+                console.log("✅ 手順保存成功");
             }
 
+            console.log("🎉 すべて保存完了、遷移します");
             router.push(`/recipes/${recipeId}`);
         } catch (err: unknown) {
+            console.error("💥 保存失敗:", err);
             setError(err instanceof Error ? err.message : "保存に失敗しました");
             setSaving(false);
         }
