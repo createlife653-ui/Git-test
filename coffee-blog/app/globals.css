@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/* The Editorial Muse - Design System: The Artisanal Archive */
+/* Coffee Knowledge Blog Design Tokens */
+
+:root {
+  /* Surface Hierarchy - Physical layers like stacked sheets of paper */
+  --color-background: #fcf9f4;      /* Base - warm cream */
+  --color-surface-low: #f6f3ee;     /* Low importance sections */
+  --color-surface-lowest: #ffffff;  /* Interactive/elevated elements */
+  --color-surface-high: #ebe8e3;    /* Focus areas */
+
+  /* Primary - Roasted coffee tones */
+  --color-primary: #361f1a;
+  --color-primary-container: #4e342e;
+
+  /* Secondary - Muted earth tones */
+  --color-secondary: #5c614d;
+  --color-secondary-container: #e0e5cc;
+
+  /* On colors */
+  --color-on-surface: #1c1c19;
+  --color-on-primary: #ffffff;
+  --color-on-secondary-container: #626753;
+
+  /* Outline */
+  --color-outline-variant: #d4c3bf;
+
+  /* Typography - Letter spacing */
+  --letter-spacing-display: -0.02em;
+  --letter-spacing-label: 0.05em;
+}
+
+@theme inline {
+  /* Colors */
+  --color-background: var(--color-background);
+  --color-surface-low: var(--color-surface-low);
+  --color-surface-lowest: var(--color-surface-lowest);
+  --color-surface-high: var(--color-surface-high);
+  --color-primary: var(--color-primary);
+  --color-primary-container: var(--color-primary-container);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-container: var(--color-secondary-container);
+  --color-on-surface: var(--color-on-surface);
+  --color-on-primary: var(--color-on-primary);
+  --color-on-secondary-container: var(--color-on-secondary-container);
+  --color-outline-variant: var(--color-outline-variant);
+
+  /* Font families - set via variables in layout.tsx */
+  --font-display: var(--font-plus-jakarta);
+  --font-body: var(--font-work-sans);
+  --font-sans: var(--font-work-sans);
+}
+
+/* Typography */
+body {
+  background: var(--color-background);
+  color: var(--color-on-surface);
+  font-family: var(--font-work-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* The "No-Line" Rule - Use background shifts, not borders */
+.section-divider {
+  padding-block: 5rem;
+}
+
+/* The "Glass & Texture" Rule */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* Signature Texture Gradient */
+.signature-gradient {
+  background: linear-gradient(135deg, #361f1a 0%, #4e342e 100%);
+}
+
+/* Ghost Border - subtle boundary at 15% opacity */
+.ghost-border {
+  border: 1px solid rgba(212, 195, 191, 0.15);
+}
+
+.ghost-border-strong {
+  border: 1px solid rgba(212, 195, 191, 0.2);
+}
