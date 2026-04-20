@@ -75,7 +75,9 @@ export default async function BlogPage() {
                     {article.tags && article.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-4">
                         {article.tags.map((tag) => (
-                          <Chip key={tag} clickable={false}>{tag}</Chip>
+                          <Link key={tag} href={`/library/${encodeURIComponent(tag)}`}>
+                            <Chip clickable={true}>{tag}</Chip>
+                          </Link>
                         ))}
                       </div>
                     )}

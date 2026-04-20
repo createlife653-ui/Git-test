@@ -92,3 +92,33 @@ export function getAllPostSlugs(): string[] {
     .filter((fileName) => fileName.endsWith('.md'))
     .map((fileName) => fileName.replace(/\.md$/, ''));
 }
+
+// 全タグ一覧と記事数を取得
+export function getAllTags(): Array<{ name: string; count: number }> {
+  const posts = getAllPosts();
+  const tagMap = new Map<string, number>();
+
+  posts.forEach((post) => {
+    post.tags.forEach((tag) => {
+      tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+    });
+  });
+
+  return Array.from(tagMap.entries())
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+// 特定タグの記事を取得
+export function getPostsByTag(tag: string): PostMetadata[] {
+  const posts = getAllPosts();
+  return posts.filter((post) => post.tags.includes(tag));
+}
+
+// 全タグ名リスト（generateStaticParams用）
+export function getAllTagNames(): string[] {
+  const posts = getAllPosts();
+  const tags = new Set<string>();
+  posts.forEach((post) => post.tags.forEach((tag) => tags.add(tag)));
+  return Array.from(tags).sort();
+}

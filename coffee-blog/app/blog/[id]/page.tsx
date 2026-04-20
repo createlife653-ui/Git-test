@@ -93,7 +93,9 @@ export default async function ArticlePage({ params }: PageProps) {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
-                      <Chip key={tag} clickable={false}>{tag}</Chip>
+                      <Link key={tag} href={`/library/${encodeURIComponent(tag)}`}>
+                        <Chip clickable={true}>{tag}</Chip>
+                      </Link>
                     ))}
                   </div>
                 </div>
