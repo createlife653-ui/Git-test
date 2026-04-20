@@ -4,57 +4,33 @@ import { Chip } from '../../components/ui/chip';
 import { Button } from '../../components/ui/button';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/posts';
 
-/* Blog Article Page - The Editorial Muse Design System */
+/* Blog Article Page - Markdownベースの実装 */
 
-// Sample article data - would be fetched from MDX in production
-const articles: Record<string, {
-  title: string;
-  excerpt: string;
-  category: string;
-  date: string;
-  readTime: string;
-  image: string;
-  tags: string[];
-  content: string;
-}> = {
-  '1': {
-    title: 'エチオピア咖啡豆の特徴',
-    excerpt: 'エチオピアはコーヒーの故郷とも言われる国です。ここでは、エチオピア産コーヒー豆の特徴や、代表的な産地、味わいの傾向について解説します。',
-    category: 'Tasting Notes',
-    date: '2024年3月15日',
-    readTime: '8 min read',
-    image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1200&h=600&fit=crop',
-    tags: ['Citrus', 'Floral', 'Ethiopia'],
-    content: `
-## コーヒーの故郷、エチオピア
-
-エチオピアはコーヒー発祥の地として知られています。ここでは、エチオピア産コーヒー豆の特徴と、代表的な産地について解説します。
-
-### 代表的な産地
-
-エチオピアには数多くの産地がありますが、特に有名なのは以下の3つです：
-
-- **イェルガチェフェ**: フローラルで繊細な酸味が特徴
-- **シダモ**: フルーティーでボディのある味わい
-- **ハラール**: スパイシーでワイルドな風味
-
-### 味わいの特徴
-
-エチオピアコーヒーの最大の特徴は、その鮮明な酸味と複雑なフレーバーです。
-
-### テイスティングノート
-
-典型的なエチオピアコーヒーのテイスティングプロファイル：
-    `,
-  },
+const mdxComponents = {
+  // 必要に応じてカスタムコンポーネントを追加
+  h1: (props: any) => <h1 className="font-display font-bold text-3xl text-primary mt-8 mb-4" {...props} />,
+  h2: (props: any) => <h2 className="font-display font-semibold text-2xl text-primary mt-6 mb-3" {...props} />,
+  h3: (props: any) => <h3 className="font-display font-semibold text-xl text-primary mt-5 mb-2" {...props} />,
+  p: (props: any) => <p className="text-primary/90 leading-relaxed mb-4" {...props} />,
+  ul: (props: any) => <ul className="list-disc list-inside mb-4 space-y-2" {...props} />,
+  ol: (props: any) => <ol className="list-decimal list-inside mb-4 space-y-2" {...props} />,
+  li: (props: any) => <li className="text-primary/90" {...props} />,
+  strong: (props: any) => <strong className="font-bold text-primary" {...props} />,
+  table: (props: any) => (
+    <div className="overflow-x-auto mb-6">
+      <table className="min-w-full border-collapse" {...props} />
+    </div>
+  ),
+  th: (props: any) => (
+    <th className="border border-outline-variant/30 px-4 py-2 bg-surface-low text-left font-semibold" {...props} />
+  ),
+  td: (props: any) => (
+    <td className="border border-outline-variant/30 px-4 py-2" {...props} />
+  ),
 };
-
-const relatedArticles = [
-  { id: 2, title: '淹れ方による味わいの変化', category: 'Brewing Guides' },
-  { id: 3, title: '焙煎度によるフレーバーの変化', category: 'Roast Profiles' },
-  { id: 5, title: 'サスター式 vs ケメックス式', category: 'Equipment' },
-];
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -62,11 +38,17 @@ interface PageProps {
 
 export default async function ArticlePage({ params }: PageProps) {
   const { id } = await params;
-  const article = articles[id];
+  const post = getPostBySlug(id);
 
-  if (!article) {
+  if (!post) {
     notFound();
   }
+
+  // 関連記事を取得（現在の記事を除く）
+  const allPosts = getAllPosts();
+  const relatedArticles = allPosts
+    .filter((p) => p.slug !== id)
+    .slice(0, 3);
 
   return (
     <>
@@ -75,8 +57,8 @@ export default async function ArticlePage({ params }: PageProps) {
         {/* Hero Image */}
         <section className="relative h-[60vh] min-h-[400px]">
           <img
-            src={article.image}
-            alt={article.title}
+            src={post.image}
+            alt={post.title}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
@@ -88,51 +70,43 @@ export default async function ArticlePage({ params }: PageProps) {
             <article className="bg-surface-lowest rounded-xl p-8 md:p-12 shadow-ambient">
               {/* Category */}
               <span className="inline-block font-label text-xs uppercase tracking-widest text-primary/70 mb-4">
-                {article.category}
+                {post.category}
               </span>
 
               {/* Title */}
               <h1 className="font-display font-bold text-headline-lg text-primary leading-tight mb-6">
-                {article.title}
+                {post.title}
               </h1>
 
               {/* Meta */}
               <div className="flex flex-wrap items-center gap-4 text-sm text-secondary mb-8">
-                <time>{article.date}</time>
+                <time>{post.date}</time>
                 <span>•</span>
-                <span>{article.readTime}</span>
+                <span>{post.readTime}</span>
               </div>
 
-              {/* Tasting Notes */}
-              <div className="mb-8 pb-8 border-b border-outline-variant/15">
-                <h3 className="font-label text-xs uppercase tracking-widest text-primary/70 mb-4">
-                  Tasting Notes
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {article.tags.map((tag) => (
-                    <Chip key={tag} clickable={false}>{tag}</Chip>
-                  ))}
+              {/* Tasting Notes / Tags */}
+              {post.tags && post.tags.length > 0 && (
+                <div className="mb-8 pb-8 border-b border-outline-variant/15">
+                  <h3 className="font-label text-xs uppercase tracking-widest text-primary/70 mb-4">
+                    タグ
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <Chip key={tag} clickable={false}>{tag}</Chip>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {/* Excerpt */}
+              <p className="text-xl text-primary/90 font-medium leading-relaxed mb-8">
+                {post.excerpt}
+              </p>
 
               {/* Content */}
               <div className="prose prose-lg max-w-none">
-                <p className="text-xl text-primary/90 font-medium leading-relaxed mb-8">
-                  {article.excerpt}
-                </p>
-                <div dangerouslySetInnerHTML={{ __html: article.content.replace(/\n/g, '<br>') }} />
-              </div>
-
-              {/* Tags */}
-              <div className="mt-12 pt-8 border-t border-outline-variant/15">
-                <h3 className="font-label text-xs uppercase tracking-widest text-primary/70 mb-4">
-                  Tags
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {article.tags.map((tag) => (
-                    <Chip key={tag} clickable>#{tag}</Chip>
-                  ))}
-                </div>
+                <MDXRemote source={post.content} components={mdxComponents} />
               </div>
             </article>
           </div>
@@ -143,7 +117,7 @@ export default async function ArticlePage({ params }: PageProps) {
           <div className="max-w-4xl mx-auto px-6">
             <div className="flex items-center justify-between">
               <span className="font-label text-xs uppercase tracking-widest text-primary/70">
-                Share this article
+                この記事をシェア
               </span>
               <div className="flex gap-4">
                 <Button variant="secondary" size="sm">
@@ -158,29 +132,31 @@ export default async function ArticlePage({ params }: PageProps) {
         </section>
 
         {/* Related Articles */}
-        <section className="section-divider bg-surface-low">
-          <div className="max-w-6xl mx-auto px-6">
-            <h2 className="font-display font-semibold text-headline-lg text-primary mb-8">
-              関連記事
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {relatedArticles.map((related) => (
-                <Link
-                  key={related.id}
-                  href={`/blog/${related.id}`}
-                  className="bg-surface-lowest rounded-lg p-6 hover:shadow-ambient transition-shadow"
-                >
-                  <span className="inline-block font-label text-xs uppercase tracking-widest text-primary/70 mb-2">
-                    {related.category}
-                  </span>
-                  <h3 className="font-display font-semibold text-primary leading-tight">
-                    {related.title}
-                  </h3>
-                </Link>
-              ))}
+        {relatedArticles.length > 0 && (
+          <section className="section-divider bg-surface-low">
+            <div className="max-w-6xl mx-auto px-6">
+              <h2 className="font-display font-semibold text-headline-lg text-primary mb-8">
+                関連記事
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {relatedArticles.map((related) => (
+                  <Link
+                    key={related.slug}
+                    href={`/blog/${related.slug}`}
+                    className="bg-surface-lowest rounded-lg p-6 hover:shadow-ambient transition-shadow"
+                  >
+                    <span className="inline-block font-label text-xs uppercase tracking-widest text-primary/70 mb-2">
+                      {related.category}
+                    </span>
+                    <h3 className="font-display font-semibold text-primary leading-tight">
+                      {related.title}
+                    </h3>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Back to Blog */}
         <section className="section-divider">
@@ -198,5 +174,23 @@ export default async function ArticlePage({ params }: PageProps) {
 
 // Generate static params for static generation
 export async function generateStaticParams() {
-  return Object.keys(articles).map((id) => ({ id }));
+  const slugs = getAllPostSlugs();
+  return slugs.map((slug) => ({ id: slug }));
+}
+
+// メタデータ生成（オプション）
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
+  const post = getPostBySlug(id);
+
+  if (!post) {
+    return {
+      title: '記事が見つかりません',
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+  };
 }

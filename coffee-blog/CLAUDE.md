@@ -38,13 +38,20 @@
 ```
 coffee-blog/
 ├── app/
-│   ├── layout.tsx      # ルートレイアウト
-│   ├── page.tsx        # トップページ
-│   ├── posts/          # 記事一覧ページ
-│   └── [slug]/         # 個別記事ページ（動的ルート）
-├── components/         # 再利用コンポーネント
-├── lib/               # ユーティリティ関数
-└── public/            # 静的アセット
+│   ├── layout.tsx        # ルートレイアウト
+│   ├── page.tsx          # トップページ
+│   ├── blog/
+│   │   ├── page.tsx      # 記事一覧ページ
+│   │   └── [id]/
+│   │       └── page.tsx  # 個別記事ページ（動的ルート）
+│   ├── about/
+│   │   └── page.tsx      # Aboutページ
+│   └── components/       # UIコンポーネント
+├── content/
+│   └── posts/            # 記事のMarkdownファイル
+├── lib/                  # ユーティリティ関数
+│   └── posts.ts          # 記事読み込みユーティリティ
+└── public/               # 静的アセット
 ```
 
 ### 新しいページを追加する方法
@@ -60,9 +67,27 @@ app/
 ```
 
 ### 記事を追加する方法
-1. `app/posts/[slug]/page.tsx` が個別記事テンプレート
-2. 記事のデータは適切な形式（Markdown or JSON）で管理
-3. 新しい記事 = 新しい slug でアクセス
+1. `content/posts/` ディレクトリに `.md` ファイルを作成
+2. フロントマター（YAML）でメタデータを記述
+3. Markdownで本文を書く
+
+例: `content/posts/new-article.md`
+```markdown
+---
+title: '記事タイトル'
+slug: 'new-article'
+category: 'Tasting Notes'
+date: '2024-04-20'
+readTime: '5 min'
+image: 'https://images.unsplash.com/...'
+tags: ['タグ1', 'タグ2']
+excerpt: '記事の要約'
+---
+
+# 記事本文
+
+ここにMarkdownで本文を書きます。
+```
 
 ### コンポーネント作成のルール
 - コンポーネントは `components/` ディレクトリに配置
