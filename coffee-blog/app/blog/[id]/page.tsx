@@ -178,19 +178,46 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ id: slug }));
 }
 
-// メタデータ生成（オプション）
+const baseUrl = 'https://coffee-blog-eta.vercel.app';
+
+// メタデータ生成
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
   const post = getPostBySlug(id);
 
   if (!post) {
     return {
-      title: '記事が見つかりません',
+      title: '記事が見つかりません - Coffee Knowledge',
     };
   }
 
+  const url = `${baseUrl}/blog/${post.slug}`;
+
   return {
-    title: post.title,
+    title: `${post.title} - Coffee Knowledge`,
     description: post.excerpt,
+    keywords: [...post.tags, 'コーヒー', 'スペシャルティコーヒー', '珈琲'],
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      url,
+      images: [
+        {
+          url: post.image,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      publishedTime: post.date,
+      tags: post.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [post.image],
+    },
   };
 }
