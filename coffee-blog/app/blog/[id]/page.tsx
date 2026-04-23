@@ -20,15 +20,20 @@ const mdxComponents = {
   li: (props: any) => <li className="text-primary/90" {...props} />,
   strong: (props: any) => <strong className="font-bold text-primary" {...props} />,
   table: (props: any) => (
-    <div className="overflow-x-auto mb-6">
-      <table className="min-w-full border-collapse" {...props} />
+    <div className="overflow-x-auto mb-6 rounded-lg overflow-hidden shadow-sm">
+      <table className="min-w-full border-collapse bg-surface-lowest" {...props} />
     </div>
   ),
+  thead: (props: any) => <thead className="bg-surface-low" {...props} />,
   th: (props: any) => (
-    <th className="border border-outline-variant/30 px-4 py-2 bg-surface-low text-left font-semibold" {...props} />
+    <th className="border-b-2 border-outline-variant px-5 py-3 text-left font-semibold text-primary text-sm tracking-wide" {...props} />
+  ),
+  tbody: (props: any) => <tbody className="divide-y divide-outline-variant/20" {...props} />,
+  tr: (props: any) => (
+    <tr className="even:bg-surface-low/30 hover:bg-primary/5 transition-colors" {...props} />
   ),
   td: (props: any) => (
-    <td className="border border-outline-variant/30 px-4 py-2" {...props} />
+    <td className="px-5 py-3 text-primary/90 text-sm" {...props} />
   ),
 };
 
