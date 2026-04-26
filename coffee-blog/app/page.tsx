@@ -5,6 +5,7 @@ import { CategoryChip, Chip } from './components/ui/chip';
 import { Button } from './components/ui/button';
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/posts';
+import { TagChip } from './components/tag-chip';
 
 /* Homepage - The Editorial Muse Design System */
 /* Asymmetric grid with breathing room */
@@ -91,9 +92,7 @@ export default async function HomePage() {
                   {article.tags && article.tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-4">
                       {article.tags.map((tag) => (
-                        <Link key={tag} href={`/library/${encodeURIComponent(tag)}`}>
-                          <Chip clickable={true}>{tag}</Chip>
-                        </Link>
+                        <TagChip key={tag} tag={tag} />
                       ))}
                     </div>
                   )}
