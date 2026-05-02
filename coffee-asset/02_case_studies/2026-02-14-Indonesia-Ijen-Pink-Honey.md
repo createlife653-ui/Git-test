@@ -1,5 +1,5 @@
 # YYYYMMDD Bean Name (日付と豆の名前)
-
+2026-02-14-Indonesia-Ijen-Pink-Honey
 ## 1. Basic Data / 豆のデータ
 (わかっていることだけでOK！)
 - 産地：インドネシアの西ジャワ州バニュワンギ地区
