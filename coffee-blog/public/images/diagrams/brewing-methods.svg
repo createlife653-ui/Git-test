@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap');
+      .title { font-family: 'Noto Sans JP', sans-serif; font-size: 24px; font-weight: 700; fill: #1a1a1a; }
+      .subtitle { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; fill: #666; }
+      .method-title { font-family: 'Noto Sans JP', sans-serif; font-size: 16px; font-weight: 700; fill: #c4a77d; }
+      .label { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; fill: #444; }
+      .value { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 700; fill: #1a1a1a; }
+      .card { fill: #f9f9f9; stroke: #e0e0e0; stroke-width: 1; }
+      .icon-cup { fill: #c4a77d; }
+      .temp-bar { fill: #ff6b6b; }
+      .time-bar { fill: #4ecdc4; }
+      .flavor-bar { fill: #95e1d3; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" class="title">抽出方法の比較</text>
+  <text x="400" y="65" text-anchor="middle" class="subtitle">同じ豆でも淹れ方で味わいが変わります</text>
+
+  <!-- Method 1: Hand Drip -->
+  <g transform="translate(50, 100)">
+    <rect x="0" y="0" width="160" height="180" rx="8" class="card"/>
+    <text x="80" y="25" text-anchor="middle" class="method-title">ハンドドリップ</text>
+    <!-- Icon -->
+    <path d="M70 45 L90 45 L85 65 L75 65 Z M60 70 L100 70 L95 100 L65 100 Z" class="icon-cup" opacity="0.8"/>
+    <line x1="80" y1="35" x2="80" y2="45" stroke="#c4a77d" stroke-width="2"/>
+    <!-- Data -->
+    <text x="15" y="95" class="label">温度</text>
+    <text x="145" y="95" text-anchor="end" class="value">90-95℃</text>
+    <text x="15" y="115" class="label">時間</text>
+    <text x="145" y="115" text-anchor="end" class="value">3分</text>
+    <text x="15" y="135" class="label">特徴</text>
+    <text x="145" y="135" text-anchor="end" class="value">クリーンな味</text>
+    <text x="15" y="155" class="label">粒度</text>
+    <text x="145" y="155" text-anchor="end" class="value">中挽き</text>
+  </g>
+
+  <!-- Method 2: French Press -->
+  <g transform="translate(230, 100)">
+    <rect x="0" y="0" width="160" height="180" rx="8" class="card"/>
+    <text x="80" y="25" text-anchor="middle" class="method-title">フレンチプレス</text>
+    <!-- Icon -->
+    <rect x="65" y="45" width="30" height="40" rx="2" fill="none" stroke="#c4a77d" stroke-width="2"/>
+    <line x1="60" y1="40" x2="100" y2="40" stroke="#c4a77d" stroke-width="3"/>
+    <line x1="80" y1="40" x2="80" y2="55" stroke="#c4a77d" stroke-width="2"/>
+    <rect x="70" y="55" width="20" height="3" fill="#c4a77d"/>
+    <line x1="80" y1="58" x2="80" y2="75" stroke="#c4a77d" stroke-width="1"/>
+    <!-- Data -->
+    <text x="15" y="95" class="label">温度</text>
+    <text x="145" y="95" text-anchor="end" class="value">90-95℃</text>
+    <text x="15" y="115" class="label">時間</text>
+    <text x="145" y="115" text-anchor="end" class="value">4分</text>
+    <text x="15" y="135" class="label">特徴</text>
+    <text x="145" y="135" text-anchor="end" class="value">リッチなボディ</text>
+    <text x="15" y="155" class="label">粒度</text>
+    <text x="145" y="155" text-anchor="end" class="value">粗挽き</text>
+  </g>
+
+  <!-- Method 3: Espresso -->
+  <g transform="translate(410, 100)">
+    <rect x="0" y="0" width="160" height="180" rx="8" class="card"/>
+    <text x="80" y="25" text-anchor="middle" class="method-title">エスプレッソ</text>
+    <!-- Icon -->
+    <ellipse cx="80" cy="75" rx="25" ry="8" fill="#c4a77d" opacity="0.3"/>
+    <path d="M55 50 L55 75 L105 75 L105 50 Z" fill="none" stroke="#c4a77d" stroke-width="2"/>
+    <rect x="50" y="45" width="60" height="5" fill="#c4a77d"/>
+    <path d="M70 35 Q80 30 90 35" fill="none" stroke="#c4a77d" stroke-width="2"/>
+    <!-- Data -->
+    <text x="15" y="95" class="label">温度</text>
+    <text x="145" y="95" text-anchor="end" class="value">90-93℃</text>
+    <text x="15" y="115" class="label">時間</text>
+    <text x="145" y="115" text-anchor="end" class="value">25秒</text>
+    <text x="15" y="135" class="label">特徴</text>
+    <text x="145" y="135" text-anchor="end" class="value">濃厚・クリーミー</text>
+    <text x="15" y="155" class="label">粒度</text>
+    <text x="145" y="155" text-anchor="end" class="value">極細挽き</text>
+  </g>
+
+  <!-- Method 4: Cold Brew -->
+  <g transform="translate(590, 100)">
+    <rect x="0" y="0" width="160" height="180" rx="8" class="card"/>
+    <text x="80" y="25" text-anchor="middle" class="method-title">コールドブリュー</text>
+    <!-- Icon -->
+    <rect x="65" y="40" width="30" height="45" rx="2" fill="none" stroke="#c4a77d" stroke-width="2"/>
+    <line x1="65" y1="60" x2="95" y2="60" stroke="#c4a77d" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="65" y1="70" x2="95" y2="70" stroke="#c4a77d" stroke-width="1" stroke-dasharray="3,2"/>
+    <ellipse cx="80" cy="85" rx="15" ry="3" fill="#c4a77d" opacity="0.3"/>
+    <!-- Data -->
+    <text x="15" y="95" class="label">温度</text>
+    <text x="145" y="95" text-anchor="end" class="value">常温</text>
+    <text x="15" y="115" class="label">時間</text>
+    <text x="145" y="115" text-anchor="end" class="value">8-12時間</text>
+    <text x="15" y="135" class="label">特徴</text>
+    <text x="145" y="135" text-anchor="end" class="value">まろやか・低酸</text>
+    <text x="15" y="155" class="label">粒度</text>
+    <text x="145" y="155" text-anchor="end" class="value">粗挽き</text>
+  </g>
+
+  <!-- Comparison Charts -->
+  <g transform="translate(50, 310)">
+    <text x="0" y="0" class="method-title" font-size="14">味わいの特徴比較</text>
+
+    <!-- Acidity -->
+    <text x="0" y="25" class="label">酸味</text>
+    <line x1="50" y1="22" x2="700" y2="22" stroke="#e0e0e0" stroke-width="4"/>
+    <rect x="50" y="18" width="600" height="8" fill="#e0e0e0" rx="4"/>
+    <rect x="50" y="18" width="150" height="8" fill="#ff6b6b" rx="4"><title>ハンドドリップ: 高い酸味</title></rect>
+    <rect x="50" y="18" width="80" height="8" fill="#ff6b6b" opacity="0.6"><title>フレンチプレス: 中程度の酸味</title></rect>
+    <rect x="50" y="18" width="200" height="8" fill="#ff6b6b" opacity="0.8"><title>エスプレッソ: バランス</title></rect>
+    <rect x="50" y="18" width="30" height="8" fill="#ff6b6b" opacity="0.3"><title>コールドブリュー: 低い酸味</title></rect>
+
+    <!-- Body -->
+    <text x="0" y="50" class="label">ボディ</text>
+    <line x1="50" y1="47" x2="700" y2="47" stroke="#e0e0e0" stroke-width="4"/>
+    <rect x="50" y="43" width="100" height="8" fill="#4ecdc4" rx="4"/>
+    <rect x="50" y="43" width="200" height="8" fill="#4ecdc4" opacity="0.7"/>
+    <rect x="50" y="43" width="250" height="8" fill="#4ecdc4" opacity="0.9"/>
+    <rect x="50" y="43" width="180" height="8" fill="#4ecdc4" opacity="0.6"/>
+
+    <!-- Clarity -->
+    <text x="0" y="75" class="label">クリアさ</text>
+    <line x1="50" y1="72" x2="700" y2="72" stroke="#e0e0e0" stroke-width="4"/>
+    <rect x="50" y="68" width="250" height="8" fill="#95e1d3" rx="4"/>
+    <rect x="50" y="68" width="80" height="8" fill="#95e1d3" opacity="0.4"/>
+    <rect x="50" y="68" width="150" height="8" fill="#95e1d3" opacity="0.7"/>
+    <rect x="50" y="68" width="100" height="8" fill="#95e1d3" opacity="0.5"/>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(50, 420)">
+    <circle cx="10" cy="10" r="6" fill="#ff6b6b"/>
+    <text x="25" y="14" class="label">ハンドドリップ</text>
+    <circle cx="130" cy="10" r="6" fill="#4ecdc4"/>
+    <text x="145" y="14" class="label">フレンチプレス</text>
+    <circle cx="270" cy="10" r="6" fill="#c4a77d"/>
+    <text x="285" y="14" class="label">エスプレッソ</text>
+    <circle cx="390" cy="10" r="6" fill="#95e1d3"/>
+    <text x="405" y="14" class="label">コールドブリュー</text>
+  </g>
+</svg>

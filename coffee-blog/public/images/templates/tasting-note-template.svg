@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap');
+      .title { font-family: 'Noto Sans JP', sans-serif; font-size: 28px; font-weight: 700; fill: #1a1a1a; }
+      .subtitle { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; fill: #888; }
+      .section-title { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 700; fill: #c4a77d; }
+      .label { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; fill: #666; }
+      .input-line { stroke: #e0e0e0; stroke-width: 1; fill: none; }
+      .input-box { fill: #fafafa; stroke: #e0e0e0; stroke-width: 1; }
+      .checkbox { fill: #fff; stroke: #c4a77d; stroke-width: 1.5; }
+      .coffee-bean { fill: #c4a77d; opacity: 0.15; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="1000" fill="#ffffff"/>
+
+  <!-- Decorative Coffee Beans -->
+  <circle cx="100" cy="150" r="40" class="coffee-bean"/>
+  <ellipse cx="100" cy="150" rx="15" ry="25" transform="rotate(-30 100 150)" class="coffee-bean"/>
+  <circle cx="700" cy="850" r="60" class="coffee-bean"/>
+  <ellipse cx="700" cy="850" rx="20" ry="35" transform="rotate(20 700 850)" class="coffee-bean"/>
+
+  <!-- Header -->
+  <text x="400" y="50" text-anchor="middle" class="title">コーヒーテイスティングノート</text>
+  <text x="400" y="75" text-anchor="middle" class="subtitle">Coffee Tasting Note Template</text>
+
+  <!-- Basic Info Section -->
+  <g transform="translate(50, 100)">
+    <rect x="0" y="0" width="700" height="100" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">基本情報</text>
+
+    <text x="20" y="50" class="label">豆の名前</text>
+    <line x1="100" y1="50" x2="350" y2="50" class="input-line"/>
+
+    <text x="380" y="50" class="label">日付</text>
+    <line x1="420" y1="50" x2="680" y2="50" class="input-line"/>
+
+    <text x="20" y="75" class="label">産地</text>
+    <line x1="60" y1="75" x2="200" y2="75" class="input-line"/>
+
+    <text x="220" y="75" class="label">精製方法</text>
+    <line x1="290" y1="75" x2="400" y2="75" class="input-line"/>
+
+    <text x="420" y="75" class="label">焙煎度</text>
+    <line x1="470" y1="75" x2="680" y2="75" class="input-line"/>
+  </g>
+
+  <!-- Brewing Recipe Section -->
+  <g transform="translate(50, 220)">
+    <rect x="0" y="0" width="340" height="180" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">抽出レシピ</text>
+
+    <text x="20" y="50" class="label">器具</text>
+    <line x1="60" y1="50" x2="320" y2="50" class="input-line"/>
+
+    <text x="20" y="75" class="label">お湯の温度</text>
+    <line x1="90" y1="75" x2="150" y2="75" class="input-line"/>
+    <text x="160" y="75" class="label">℃</text>
+
+    <text x="20" y="100" class="label">粉量</text>
+    <line x1="60" y1="100" x2="120" y2="100" class="input-line"/>
+    <text x="130" y="100" class="label">g</text>
+
+    <text x="180" y="100" class="label">湯量</text>
+    <line x1="220" y1="100" x2="280" y2="100" class="input-line"/>
+    <text x="290" y="100" class="label">ml</text>
+
+    <text x="20" y="125" class="label">挽き目</text>
+    <line x1="60" y1="125" x2="320" y2="125" class="input-line"/>
+
+    <text x="20" y="150" class="label">抽出時間</text>
+    <line x1="90" y1="150" x2="180" y2="150" class="input-line"/>
+    <text x="190" y="150" class="label">秒</text>
+  </g>
+
+  <!-- Flavor Wheel Quick Reference -->
+  <g transform="translate(410, 220)">
+    <rect x="0" y="0" width="340" height="180" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">フレーバークイックチェック</text>
+
+    <g transform="translate(20, 45)">
+      <rect x="0" y="0" width="12" height="12" class="checkbox"/>
+      <text x="20" y="10" class="label">フルーティー（柑橘、ベリー）</text>
+
+      <rect x="0" y="20" width="12" height="12" class="checkbox"/>
+      <text x="20" y="30" class="label">フローラル（花のような）</text>
+
+      <rect x="0" y="40" width="12" height="12" class="checkbox"/>
+      <text x="20" y="50" class="label">ナッツ（アーモンド、ヘーゼル）</text>
+
+      <rect x="0" y="60" width="12" height="12" class="checkbox"/>
+      <text x="20" y="70" class="label">チョコレート</text>
+
+      <rect x="0" y="80" width="12" height="12" class="checkbox"/>
+      <text x="20" y="90" class="label">スパイシー</text>
+
+      <rect x="0" y="100" width="12" height="12" class="checkbox"/>
+      <text x="20" y="110" class="label">キャラメル / 焦がした味</text>
+    </g>
+
+    <g transform="translate(180, 45)">
+      <rect x="0" y="0" width="12" height="12" class="checkbox"/>
+      <text x="20" y="10" class="label">酸味が強い</text>
+
+      <rect x="0" y="20" width="12" height="12" class="checkbox"/>
+      <text x="20" y="30" class="label">苦味が強い</text>
+
+      <rect x="0" y="40" width="12" height="12" class="checkbox"/>
+      <text x="20" y="50" class="label">甘みを感じる</text>
+
+      <rect x="0" y="60" width="12" height="12" class="checkbox"/>
+      <text x="20" y="70" class="label">ボディが濃厚</text>
+
+      <rect x="0" y="80" width="12" height="12" class="checkbox"/>
+      <text x="20" y="90" class="label">口当たりが軽い</text>
+
+      <rect x="0" y="100" width="12" height="12" class="checkbox"/>
+      <text x="20" y="110" class="label">キレがある</text>
+    </g>
+  </g>
+
+  <!-- Aroma Section -->
+  <g transform="translate(50, 420)">
+    <rect x="0" y="0" width="340" height="120" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">香り</text>
+
+    <g transform="translate(20, 45)">
+      <text x="0" y="0" class="label">ドライ（粉の状態）</text>
+      <line x1="0" y1="15" x2="300" y2="15" class="input-line"/>
+
+      <text x="0" y="45" class="label">クラスター（お湯を注いだ瞬間）</text>
+      <line x1="0" y1="60" x2="300" y2="60" class="input-line"/>
+    </g>
+  </g>
+
+  <!-- Taste Section -->
+  <g transform="translate(410, 420)">
+    <rect x="0" y="0" width="340" height="120" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">味わい</text>
+
+    <g transform="translate(20, 45)">
+      <text x="0" y="0" class="label">一口目の印象</text>
+      <line x1="0" y1="15" x2="300" y2="15" class="input-line"/>
+
+      <text x="0" y="45" class="label">冷めてからの変化</text>
+      <line x1="0" y1="60" x2="300" y2="60" class="input-line"/>
+    </g>
+  </g>
+
+  <!-- Acidity Level -->
+  <g transform="translate(50, 560)">
+    <rect x="0" y="0" width="340" height="80" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">酸味レベル</text>
+
+    <line x1="20" y1="55" x2="320" y2="55" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="170" cy="55" r="8" fill="#c4a77d"/>
+    <text x="20" y="70" class="label">弱い</text>
+    <text x="320" y="70" text-anchor="end" class="label">強い</text>
+  </g>
+
+  <!-- Body Level -->
+  <g transform="translate(410, 560)">
+    <rect x="0" y="0" width="340" height="80" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">ボディ（濃さ）</text>
+
+    <line x1="20" y1="55" x2="320" y2="55" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="170" cy="55" r="8" fill="#c4a77d"/>
+    <text x="20" y="70" class="label">軽い</text>
+    <text x="320" y="70" text-anchor="end" class="label">濃厚</text>
+  </g>
+
+  <!-- Finish / Aftertaste -->
+  <g transform="translate(50, 660)">
+    <rect x="0" y="0" width="700" height="100" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">余韻</text>
+
+    <g transform="translate(20, 45)">
+      <text x="0" y="0" class="label">飲み込んだ後に残る味</text>
+      <line x1="0" y1="15" x2="660" y2="15" class="input-line"/>
+
+      <text x="0" y="45" class="label">余韻の長さ</text>
+      <rect x="100" y="35" width="12" height="12" class="checkbox"/>
+      <text x="120" y="45" class="label">短い</text>
+      <rect x="180" y="35" width="12" height="12" class="checkbox"/>
+      <text x="200" y="45" class="label">中程度</text>
+      <rect x="290" y="35" width="12" height="12" class="checkbox"/>
+      <text x="310" y="45" class="label">長い</text>
+    </g>
+  </g>
+
+  <!-- Overall Rating -->
+  <g transform="translate(50, 780)">
+    <rect x="0" y="0" width="340" height="100" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">総合評価</text>
+
+    <text x="20" y="55" class="label">おすすめ度</text>
+    <g transform="translate(100, 45)">
+      <circle cx="0" cy="0" r="8" fill="#fff" stroke="#c4a77d" stroke-width="1.5"/>
+      <circle cx="25" cy="0" r="8" fill="#fff" stroke="#c4a77d" stroke-width="1.5"/>
+      <circle cx="50" cy="0" r="8" fill="#fff" stroke="#c4a77d" stroke-width="1.5"/>
+      <circle cx="75" cy="0" r="8" fill="#fff" stroke="#c4a77d" stroke-width="1.5"/>
+      <circle cx="100" cy="0" r="8" fill="#fff" stroke="#c4a77d" stroke-width="1.5"/>
+    </g>
+  </g>
+
+  <!-- Notes -->
+  <g transform="translate(410, 780)">
+    <rect x="0" y="0" width="340" height="100" rx="8" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">自由メモ</text>
+    <line x1="20" y1="50" x2="320" y2="50" class="input-line"/>
+    <line x1="20" y1="70" x2="320" y2="70" class="input-line"/>
+    <line x1="20" y1="90" x2="320" y2="90" class="input-line"/>
+  </g>
+
+  <!-- Next Steps -->
+  <g transform="translate(50, 900)">
+    <rect x="0" y="0" width="700" height="70" rx="8" fill="#fef9f5" stroke="#c4a77d" stroke-width="1"/>
+    <text x="20" y="25" class="section-title">次へのステップ</text>
+    <g transform="translate(20, 40)">
+      <rect x="0" y="0" width="12" height="12" class="checkbox"/>
+      <text x="20" y="10" class="label">もう一度違う条件で淹れてみたい</text>
+
+      <rect x="240" y="0" width="12" height="12" class="checkbox"/>
+      <text x="260" y="10" class="label">他の豆と比較したい</text>
+
+      <rect x="460" y="0" width="12" height="12" class="checkbox"/>
+      <text x="480" y="10" class="label">友人にすすめたい</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <text x="400" y="990" text-anchor="middle" class="subtitle" font-size="10">coffee-blog.tokyo</text>
+</svg>

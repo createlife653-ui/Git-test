@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&amp;display=swap');
+      .title { font-family: 'Noto Sans JP', sans-serif; font-size: 24px; font-weight: 700; fill: #1a1a1a; }
+      .subtitle { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; fill: #666; }
+      .acid-title { font-family: 'Noto Sans JP', sans-serif; font-size: 18px; font-weight: 700; }
+      .label { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; fill: #555; }
+      .desc { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; fill: #666; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="600" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="450" y="40" text-anchor="middle" class="title">コーヒーの酸味：4つの有機酸</text>
+  <text x="450" y="65" text-anchor="middle" class="subtitle">酸味はコーヒーに生き生きとした表情と立体感を与えます</text>
+
+  <!-- Central Hub -->
+  <g transform="translate(450, 320)">
+    <circle cx="0" cy="0" r="60" fill="#c4a77d" opacity="0.2"/>
+    <circle cx="0" cy="0" r="45" fill="#c4a77d" opacity="0.4"/>
+    <text x="0" y="5" text-anchor="middle" class="acid-title" font-size="14" fill="#1a1a1a">コーヒーの</text>
+    <text x="0" y="22" text-anchor="middle" class="acid-title" font-size="14" fill="#1a1a1a">酸味</text>
+  </g>
+
+  <!-- Citric Acid (Top Left) -->
+  <g transform="translate(100, 100)">
+    <line x1="150" y1="150" x2="300" y2="180" stroke="#ffd93d" stroke-width="2" stroke-dasharray="5,5"/>
+    <rect x="0" y="0" width="200" height="180" rx="12" fill="#fff9e6" stroke="#ffd93d" stroke-width="2"/>
+    <circle cx="100" cy="40" r="25" fill="#ffd93d"/>
+    <text x="100" y="45" text-anchor="middle" class="acid-title" fill="#1a1a1a">クエン酸</text>
+    <text x="100" y="80" text-anchor="middle" class="label" font-weight="700">柑橘系の酸味</text>
+
+    <g transform="translate(15, 95)">
+      <text x="0" y="0" class="desc">• 明るく直線的な酸味</text>
+      <text x="0" y="18" class="desc">• 舌の先で感じやすい</text>
+      <text x="0" y="36" class="desc">• レモン・ライムのような爽やかさ</text>
+      <text x="0" y="54" class="desc">• すっきりとした後味</text>
+    </g>
+
+    <rect x="15" y="155" width="170" height="18" rx="4" fill="#fff" stroke="#ffd93d" stroke-width="1"/>
+    <text x="100" y="168" text-anchor="middle" class="desc" font-weight="700">浅煎り・高地栽培・ウォッシュド</text>
+  </g>
+
+  <!-- Malic Acid (Top Right) -->
+  <g transform="translate(600, 100)">
+    <line x1="0" y1="150" x2="150" y2="180" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="5,5"/>
+    <rect x="0" y="0" width="200" height="180" rx="12" fill="#ffe6e6" stroke="#ff6b6b" stroke-width="2"/>
+    <circle cx="100" cy="40" r="25" fill="#ff6b6b"/>
+    <text x="100" y="45" text-anchor="middle" class="acid-title" fill="#fff">リンゴ酸</text>
+    <text x="100" y="80" text-anchor="middle" class="label" font-weight="700">リンゴ系の酸味</text>
+
+    <g transform="translate(15, 95)">
+      <text x="0" y="0" class="desc">• 丸みのある酸味</text>
+      <text x="0" y="18" class="desc">• 果汁感がある</text>
+      <text x="0" y="36" class="desc">• 甘さと共存しやすい</text>
+      <text x="0" y="54" class="desc">• 口に広がる瑞々しさ</text>
+    </g>
+
+    <rect x="15" y="155" width="170" height="18" rx="4" fill="#fff" stroke="#ff6b6b" stroke-width="1"/>
+    <text x="100" y="168" text-anchor="middle" class="desc" font-weight="700">エチオピア・ケニアによく見られる</text>
+  </g>
+
+  <!-- Tartaric Acid (Bottom Left) -->
+  <g transform="translate(100, 380)">
+    <line x1="150" y1="0" x2="300" y2="-30" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,5"/>
+    <rect x="0" y="0" width="200" height="180" rx="12" fill="#f5e6ff" stroke="#9b59b6" stroke-width="2"/>
+    <circle cx="100" cy="40" r="25" fill="#9b59b6"/>
+    <text x="100" y="45" text-anchor="middle" class="acid-title" fill="#fff">酒石酸</text>
+    <text x="100" y="80" text-anchor="middle" class="label" font-weight="700">ブドウ系の酸味</text>
+
+    <g transform="translate(15, 95)">
+      <text x="0" y="0" class="desc">• やや鋭い酸味</text>
+      <text x="0" y="18" class="desc">• ワインのような印象</text>
+      <text x="0" y="36" class="desc">• 「ワイニー」と表現される</text>
+      <text x="0" y="54" class="desc">• 複雑な層を持つ酸</text>
+    </g>
+
+    <rect x="15" y="155" width="170" height="18" rx="4" fill="#fff" stroke="#9b59b6" stroke-width="1"/>
+    <text x="100" y="168" text-anchor="middle" class="desc" font-weight="700">ナチュラルプロセスで顕著</text>
+  </g>
+
+  <!-- Acetic Acid (Bottom Right) -->
+  <g transform="translate(600, 380)">
+    <line x1="0" y1="0" x2="150" y2="-30" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,5"/>
+    <rect x="0" y="0" width="200" height="180" rx="12" fill="#ffebe6" stroke="#e74c3c" stroke-width="2"/>
+    <circle cx="100" cy="40" r="25" fill="#e74c3c"/>
+    <text x="100" y="45" text-anchor="middle" class="acid-title" fill="#fff">酢酸</text>
+    <text x="100" y="80" text-anchor="middle" class="label" font-weight="700">酢のような酸味</text>
+
+    <g transform="translate(15, 95)">
+      <text x="0" y="0" class="desc">• 刺激的・発酵的な印象</text>
+      <text x="0" y="18" class="desc">• 多すぎると欠点に</text>
+      <text x="0" y="36" class="desc">• 適量なら深みを与える</text>
+      <text x="0" y="54" class="desc">• 過剰だと不快な酸味に</text>
+    </g>
+
+    <rect x="15" y="155" width="170" height="18" rx="4" fill="#fff" stroke="#e74c3c" stroke-width="1"/>
+    <text x="100" y="168" text-anchor="middle" class="desc" font-weight="700">注意が必要な酸味</text>
+  </g>
+
+  <!-- Altitude Note -->
+  <g transform="translate(50, 560)">
+    <rect x="0" y="0" width="800" height="30" rx="4" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+    <text x="400" y="20" text-anchor="middle" class="label">
+      <tspan font-weight="700">標高との関係：</tspan>
+      高地で育つコーヒーは成熟がゆっくり進み、糖分がじっくり蓄積され、酸が失われにくいため酸味が豊かに
+    </text>
+  </g>
+</svg>
