@@ -24,14 +24,14 @@ export const metadata: Metadata = {
   verification: {
     google: 'yzJD7J80XXiK0Jj2by9D_pbieNw3xFra32noe8pWn9c',
   },
-  title: "Coffee Knowledge - 日常のコーヒーを知識資産に",
-  description: "コーヒーの知識を体系立てて情報発信・記録。スペシャルティコーヒーの世界を探求する。",
+  title: "Coffee Knowledge - いつも飲んでいるコーヒーをできるだけ自分の言葉で探しています。",
+  description: "コーヒーとAIを使ってブログを書いてみました。手探りですがどんな記録でも残していこうと思います。",
   keywords: ["コーヒー", "スペシャルティコーヒー", "珈琲", "コーヒー知識", "抽出", "焙煎"],
   authors: [{ name: "Coffee Knowledge" }],
   metadataBase: new URL(baseUrl),
   openGraph: {
-    title: "Coffee Knowledge - 日常のコーヒーを知識資産に",
-    description: "コーヒーの知識を体系立てて情報発信・記録。",
+    title: "Coffee Knowledge - いつも飲んでいるコーヒーをできるだけ自分の言葉で探しています。",
+    description: "コーヒーとAIを使ってブログを書いてみました。手探りですがどんな記録でも残していこうと思います。",
     type: "website",
     url: baseUrl,
     siteName: "Coffee Knowledge",
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Coffee Knowledge - 日常のコーヒーを知識資産に",
-    description: "コーヒーの知識を体系立てて情報発信・記録。",
+    title: "Coffee Knowledge - いつも飲んでいるコーヒーをできるだけ自分の言葉で探しています。",
+    description: "コーヒーとAIを使ってブログを書いてみました。手探りですがどんな記録でも残していこうと思います。"
   },
   robots: {
     index: true,
