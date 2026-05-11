@@ -20,7 +20,7 @@ export default function AboutPage() {
               はじめまして
             </h1>
             <p className="text-body-lg text-secondary leading-relaxed">
-              コーヒーとの付き合いは1年半になります。これまでの記録も含め、ブログに残していこうと思います。未熟な点も多いですが、どうぞよろしくお願いします。
+              コーヒーとの付き合いは２年になります。これまでの記録も含め、ブログに残していこうと思います。未熟な点も多いですが、どうぞよろしくお願いします。
             </p>
             <p className="text-xs text-secondary/50 mt-4 font-label">
               2026/04/15
