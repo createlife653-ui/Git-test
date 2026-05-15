@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/posts';
+import Image from 'next/image';
 
 /* Blog Article Page - Markdownベースの実装 */
 
@@ -61,10 +62,12 @@ export default async function ArticlePage({ params }: PageProps) {
       <main className="flex-1">
         {/* Hero Image */}
         <section className="relative h-[60vh] min-h-[400px]">
-          <img
+          <Image
             src={post.image}
             alt={post.title}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
         </section>
