@@ -2,6 +2,7 @@ import { Header } from '../../components/layout/header';
 import { Footer } from '../../components/layout/footer';
 import { Chip } from '../../components/ui/chip';
 import { Button } from '../../components/ui/button';
+import { AffiliateSection } from '../../components/affiliate-card';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -121,6 +122,11 @@ export default async function ArticlePage({ params }: PageProps) {
             </article>
           </div>
         </section>
+
+        {/* Affiliate Products Section */}
+        {post.affiliateProducts && post.affiliateProducts.length > 0 && (
+          <AffiliateSection products={post.affiliateProducts} />
+        )}
 
         {/* Share Section */}
         <section className="section-divider">
