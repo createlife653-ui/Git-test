@@ -4,7 +4,7 @@ slug: 'watasino-hikikata'
 category: 'Brewing'
 date: '2026-05-18'
 readTime: '5 min'
-image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&h=600&fit=crop'
+image: 'https://images.unsplash.com/photo-1512568400610-62da28bc8a13?w=1200&h=600&fit=crop'
 tags:
   - ハンドドリップ
   - 淹れ方

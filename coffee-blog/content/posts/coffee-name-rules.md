@@ -4,7 +4,7 @@ slug: 'coffee-name-rules'
 category: 'Journal'
 date: '2026-04-20'
 readTime: '3 min'
-image: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=1200&h=600&fit=crop'
+image: 'https://images.unsplash.com/photo-1521302080334-4bebac2763a6?w=1200&h=600&fit=crop'
 tags: ['知識', 'コーヒー豆', '名前']
 excerpt: 'コーヒー豆の名前のルールをまとめました。生産国の後にグレード、生産地区や農園、品種、精製方法などを組み合わせた名前が多く使われます。'
 ---

@@ -4,7 +4,7 @@ slug: 'acidity-structure'
 category: 'Tasting Notes'
 date: '2026-04-23'
 readTime: '6 min'
-image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&h=600&fit=crop'
+image: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=1200&h=600&fit=crop'
 tags: ['Acidity', 'Flavor', 'Tasting']
 excerpt: '酸味はコーヒーに生き生きとした表情と立体感を与え、高品質な豆を安価な豆から区別する重要な要素です。'
 ---

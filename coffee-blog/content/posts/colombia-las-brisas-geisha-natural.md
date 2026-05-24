@@ -4,7 +4,7 @@ slug: 'colombia-las-brisas-geisha-natural'
 category: 'Tasting Notes'
 date: '2024-03-22'
 readTime: '4 min'
-image: 'https://images.unsplash.com/photo-1610632380989-680fe40816c6?w=1200&h=600&fit=crop'
+image: 'https://images.unsplash.com/photo-1498804103079-a6351b050096?w=1200&h=600&fit=crop'
 tags: ['Colombia', 'Geisha', 'Anaerobic Natural', 'ナゴヤコーヒーフェス', '浅煎り']
 excerpt: '名古屋コーヒーフェスで福助のブースに出会ったコロンビア・Las Brisas Geisha Natural。スパークリングワインのような軽やかな酸味と、フローラルな香りに包まれた浅煎りの一杯。'
 ---

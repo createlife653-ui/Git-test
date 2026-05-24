@@ -4,7 +4,7 @@ slug: 'my-coffee-journey'
 category: 'Personal'
 date: '2026-04-20'
 readTime: '4 min'
-image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&h=600&fit=crop'
+image: 'https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?w=1200&h=600&fit=crop'
 tags: ['Fishing', 'Morning Coffee', 'Coffee Journey']
 excerpt: '海辺から遠くに引っ越して、趣味が釣りからコーヒーに変わった話です。'
 ---

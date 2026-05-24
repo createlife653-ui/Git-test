@@ -4,7 +4,7 @@ slug: 'tongue-calibration'
 category: 'Tasting Notes'
 date: '2026-03-03'
 readTime: '4 min'
-image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&h=600&fit=crop'
+image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1200&h=600&fit=crop'
 tags: ['Tasting', 'Training', 'Flavor']
 excerpt: 'コーヒーのプロが実践する味覚トレーニングを自宅で試してみた。風味を感じ取るための新しい発見があった。'
 ---

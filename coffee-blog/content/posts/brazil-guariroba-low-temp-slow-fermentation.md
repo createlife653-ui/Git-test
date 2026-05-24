@@ -4,7 +4,7 @@ slug: 'brazil-guariroba-low-temp-slow-fermentation'
 category: 'Tasting Notes'
 date: '2024-04-21'
 readTime: '5 min'
-image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&h=600&fit=crop'
+image: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1200&h=600&fit=crop'
 tags: ['Brazil', 'Guariroba', '低温長時間発酵', 'ハンドドリップ', '温度比較']
 excerpt: 'ブラジル・グアリロバ農園のバライーゾMG2。81℃ではルイボスティーのような繊細な香り、90℃ではコクと甘みが立つブラジルらしい味わい。湯温9℃の差がもたらす意外な変化。'
 ---

@@ -4,7 +4,7 @@ slug: 'brewing-methods'
 category: 'Brewing Guides'
 date: '2024-03-20'
 readTime: '6 min'
-image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&h=600&fit=crop'
+image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=1200&h=600&fit=crop'
 tags: ['Brewing', 'Extraction', 'Tips']
 excerpt: '同じコーヒー豆でも、淹れ方で味わいが大きく変わります。代表的な抽出方法とその特徴を比較します。'
 ---

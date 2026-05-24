@@ -4,7 +4,7 @@ slug: 'coffee-and-ai'
 category: 'Journal'
 date: '2026-05-11'
 readTime: '3 min'
-image: 'https://images.unsplash.com/photo-1507133750069-69d3cdad8738?w=1200&h=600&fit=crop'
+image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&h=600&fit=crop'
 tags: ['サイト開設', 'AI活用', 'コーヒー', 'ブログ']
 excerpt: 'AIの実力を試しながら、コーヒーの世界を探求するブログを始めました。実体験とAI活用を組み合わせて、コーヒー趣味を極めていきます。'
 ---
