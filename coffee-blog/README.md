@@ -35,3 +35,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+## クイックリンク
+
+### Amazonアソシエイト
+- [アソシエイト管理画面](https://affiliate.amazon.co.jp/)
+- [商品ページ検索（トラッキングID付き）](https://www.amazon.co.jp/ref=nav_logo_tel的光る_0_1588477605912_1?tag=coffeeblog04-22)
+
+### Google Analytics
+- [GA4 ダッシュボード](https://analytics.google.com/)
+
+### 本番サイト
+- [Coffee Knowledge](https://coffee-blog-eta.vercel.app/)

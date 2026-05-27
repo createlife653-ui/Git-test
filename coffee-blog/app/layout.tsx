@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Work_Sans } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 /* Display font for hero moments - Plus Jakarta Sans */
@@ -59,6 +60,9 @@ export default function RootLayout({
       className={`${plusJakarta.variable} ${workSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-body">{children}</body>
+      {process.env.NODE_ENV === 'production' && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }
