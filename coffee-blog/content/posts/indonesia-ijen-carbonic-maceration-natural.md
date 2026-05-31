@@ -1,7 +1,7 @@
 ---
 title: 'インドネシア・イジェン カーボニックマセレーション ナチュラルを飲んでみた'
 slug: 'indonesia-ijen-carbonic-maceration-natural'
-category: 'Tasting Notes'
+category: '豆レビュー'
 date: '2024-03-09'
 readTime: '5 min'
 image: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=1200&h=600&fit=crop'

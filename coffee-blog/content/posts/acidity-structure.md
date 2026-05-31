@@ -1,7 +1,7 @@
 ---
 title: 'コーヒーの酸味：風味に輪郭を与える火花'
 slug: 'acidity-structure'
-category: 'Tasting Notes'
+category: 'コーヒー知識'
 date: '2026-04-23'
 readTime: '6 min'
 image: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=1200&h=600&fit=crop'

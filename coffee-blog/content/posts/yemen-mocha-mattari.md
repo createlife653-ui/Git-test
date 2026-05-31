@@ -1,7 +1,7 @@
 ---
 title: 'イエメン・モカマタリ：スパイスのように複雑で、ワインのような酸味'
 slug: 'yemen-mocha-mattari'
-category: 'Tasting Notes'
+category: '豆レビュー'
 date: '2025-11-22'
 readTime: '4 min'
 image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&h=600&fit=crop'

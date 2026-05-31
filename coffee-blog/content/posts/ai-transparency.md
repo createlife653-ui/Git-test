@@ -1,7 +1,7 @@
 ---
 title: 'なぜAI活用度を公開するのか'
 slug: 'ai-transparency'
-category: 'Journal'
+category: 'AI関連'
 date: '2026-05-15'
 readTime: '4 min'
 image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=600&fit=crop'

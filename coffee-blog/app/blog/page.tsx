@@ -7,11 +7,28 @@ import { getAllPosts } from '@/lib/posts';
 
 /* Blog Listing Page - Markdownベースの実装 */
 
-export default async function BlogPage() {
+interface BlogPageProps {
+  searchParams: Promise<{ category?: string }>;
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const params = await searchParams;
+  const selectedCategory = params.category;
   const articles = getAllPosts();
 
-  // カテゴリーの抽出
-  const categories = ['All', ...Array.from(new Set(articles.map((a) => a.category)))];
+  // カテゴリーの抽出と記事数の計算
+  const categoryCounts: Record<string, number> = { All: articles.length };
+  articles.forEach((article) => {
+    categoryCounts[article.category] = (categoryCounts[article.category] || 0) + 1;
+  });
+
+  const categories = ['All', ...Array.from(new Set(articles.map((a) => a.category))).sort()];
+
+  // フィルタリング
+  const filteredArticles =
+    selectedCategory && selectedCategory !== 'All'
+      ? articles.filter((a) => a.category === decodeURIComponent(selectedCategory))
+      : articles;
 
   return (
     <>
@@ -27,7 +44,9 @@ export default async function BlogPage() {
               記事一覧
             </h1>
             <p className="text-secondary">
-              すべてのコーヒー知識
+              {selectedCategory && selectedCategory !== 'All'
+                ? `${decodeURIComponent(selectedCategory)}の記事`
+                : 'すべてのコーヒー知識'}
             </p>
           </div>
         </section>
@@ -35,16 +54,29 @@ export default async function BlogPage() {
         {/* Category Filter */}
         <section className="section-divider">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="flex flex-wrap gap-3">
-              {categories.map((category) => (
-                <Link
-                  key={category}
-                  href={category === 'All' ? '/blog' : `/blog?category=${encodeURIComponent(category)}`}
-                  className="px-4 py-2 text-sm font-medium rounded-lg bg-surface-low text-secondary hover:bg-surface-lowest transition-colors"
-                >
-                  {category}
-                </Link>
-              ))}
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => {
+                const isActive =
+                  (category === 'All' && !selectedCategory) ||
+                  (selectedCategory === category);
+
+                return (
+                  <Link
+                    key={category}
+                    href={category === 'All' ? '/blog' : `/blog?category=${encodeURIComponent(category)}`}
+                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                      isActive
+                        ? 'bg-primary text-white'
+                        : 'bg-surface-low text-secondary hover:bg-surface-lowest'
+                    }`}
+                  >
+                    {category}
+                    <span className="ml-2 text-xs opacity-70">
+                      ({categoryCounts[category] || 0})
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -52,13 +84,15 @@ export default async function BlogPage() {
         {/* Article Grid */}
         <section className="section-divider">
           <div className="max-w-6xl mx-auto px-6">
-            {articles.length === 0 ? (
+            {filteredArticles.length === 0 ? (
               <div className="text-center py-16">
-                <p className="text-secondary">記事がまだありません。</p>
+                <p className="text-secondary">
+                  {selectedCategory ? `「${decodeURIComponent(selectedCategory)}」の記事がありません。` : '記事がまだありません。'}
+                </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {articles.map((article) => (
+                {filteredArticles.map((article) => (
                   <Card
                     key={article.slug}
                     href={`/blog/${article.slug}`}
@@ -71,7 +105,7 @@ export default async function BlogPage() {
                     <CardTitle>{article.title}</CardTitle>
                     <CardExcerpt>{article.excerpt}</CardExcerpt>
 
-                    {/* Tasting Notes */}
+                    {/* Tags */}
                     {article.tags && article.tags.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-4">
                         {article.tags.map((tag) => (

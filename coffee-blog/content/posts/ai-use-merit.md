@@ -1,7 +1,7 @@
 ---
 title: 'AIを使ったコーヒーの深い理解'
 slug: 'ai-use-merit'
-category: 'Essay'
+category: 'AI関連'
 date: '2026-05-24'
 readTime: '5 min'
 tags: ['AI', 'コーヒー', '考察']

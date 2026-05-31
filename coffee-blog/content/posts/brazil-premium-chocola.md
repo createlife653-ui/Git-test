@@ -1,7 +1,7 @@
 ---
 title: 'ブラジルプレミアムショコラ：ショコラの風味が立つ、わかりやすい美味しさ'
 slug: 'brazil-premium-chocola'
-category: 'Tasting Notes'
+category: '豆レビュー'
 date: '2026-02-14'
 readTime: '4 min'
 image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1200&h=600&fit=crop'

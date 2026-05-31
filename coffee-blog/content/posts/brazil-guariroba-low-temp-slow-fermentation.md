@@ -1,7 +1,7 @@
 ---
 title: 'ブラジル・グアリロバ：81℃と90℃で分かれた二つの表情'
 slug: 'brazil-guariroba-low-temp-slow-fermentation'
-category: 'Tasting Notes'
+category: '豆レビュー'
 date: '2024-04-21'
 readTime: '5 min'
 image: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1200&h=600&fit=crop'

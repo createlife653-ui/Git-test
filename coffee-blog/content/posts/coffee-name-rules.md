@@ -1,7 +1,7 @@
 ---
 title: 'コーヒーの名前の付けられ方と活用方法をまとめてみた'
 slug: 'coffee-name-rules'
-category: 'Journal'
+category: 'コーヒー知識'
 date: '2026-04-20'
 readTime: '3 min'
 image: 'https://images.unsplash.com/photo-1521302080334-4bebac2763a6?w=1200&h=600&fit=crop'

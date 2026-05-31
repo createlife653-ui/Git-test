@@ -1,7 +1,7 @@
 ---
 title: '私のペーパーフィルターコーヒーの淹れ方'
 slug: 'watasino-hikikata'
-category: 'Brewing'
+category: '所感'
 date: '2026-05-18'
 readTime: '5 min'
 image: 'https://images.unsplash.com/photo-1512568400610-62da28bc8a13?w=1200&h=600&fit=crop'

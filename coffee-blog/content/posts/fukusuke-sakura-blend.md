@@ -1,7 +1,7 @@
 ---
 title: '福助・桜ブレンド：名古屋コーヒーフェスとの出会いから生まれた味'
 slug: 'fukusuke-sakura-blend'
-category: 'Tasting Notes'
+category: '豆レビュー'
 date: '2024-03-31'
 readTime: '5 min'
 image: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=1200&h=600&fit=crop'

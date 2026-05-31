@@ -1,7 +1,7 @@
 ---
 title: 'コロンビア・Las Brisas Geisha Natural：スパークリングワインを思わせる軽やかな酸味'
 slug: 'colombia-las-brisas-geisha-natural'
-category: 'Tasting Notes'
+category: '豆レビュー'
 date: '2024-03-22'
 readTime: '4 min'
 image: 'https://images.unsplash.com/photo-1498804103079-a6351b050096?w=1200&h=600&fit=crop'

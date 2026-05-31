@@ -1,7 +1,7 @@
 ---
 title: '釣りからコーヒーに移行した話'
 slug: 'my-coffee-journey'
-category: 'Personal'
+category: '所感'
 date: '2026-04-20'
 readTime: '4 min'
 image: 'https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?w=1200&h=600&fit=crop'

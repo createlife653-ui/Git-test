@@ -1,7 +1,7 @@
 ---
 title: '「舌は楽器である」：コーヒーのプロが実践する味覚トレーニングに挑戦'
 slug: 'tongue-calibration'
-category: 'Tasting Notes'
+category: 'コーヒー知識'
 date: '2026-03-03'
 readTime: '4 min'
 image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1200&h=600&fit=crop'

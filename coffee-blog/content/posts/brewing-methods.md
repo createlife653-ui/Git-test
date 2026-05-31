@@ -1,7 +1,7 @@
 ---
 title: '淹れ方による味わいの変化'
 slug: 'brewing-methods'
-category: 'Brewing Guides'
+category: 'コーヒー知識'
 date: '2024-03-20'
 readTime: '6 min'
 image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=1200&h=600&fit=crop'

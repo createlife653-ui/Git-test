@@ -1,7 +1,7 @@
 ---
 title: 'コーヒー豆選びの分岐と基礎知識'
 slug: 'coffee-bean-selection-basics'
-category: 'Guide'
+category: 'コーヒー知識'
 date: '2026-05-27'
 readTime: '4 min'
 image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1200&h=600&fit=crop'

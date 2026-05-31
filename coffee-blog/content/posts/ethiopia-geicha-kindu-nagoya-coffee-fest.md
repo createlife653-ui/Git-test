@@ -1,7 +1,7 @@
 ---
 title: 'エチオピア・ゲイシャ・キンドゥ：薄さの中に広がる繊細な世界'
 slug: 'ethiopia-geicha-kindu-nagoya-coffee-fest'
-category: 'Tasting Notes'
+category: '豆レビュー'
 date: '2026-03-22'
 readTime: '6 min'
 image: 'https://images.unsplash.com/photo-1610632380989-680fe40816c6?w=1200&h=600&fit=crop'

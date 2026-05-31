@@ -1,7 +1,7 @@
 ---
 title: '焙煎度によるフレーバーの変化'
 slug: 'roast-profiles'
-category: 'Roast Profiles'
+category: 'コーヒー知識'
 date: '2024-03-25'
 readTime: '5 min'
 image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1200&h=600&fit=crop'
