@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/posts';
 import Image from 'next/image';
+import remarkGfm from 'remark-gfm';
 
 /* Blog Article Page - Markdownベースの実装 */
 
@@ -117,7 +118,15 @@ export default async function ArticlePage({ params }: PageProps) {
 
               {/* Content */}
               <div className="prose prose-lg max-w-none">
-                <MDXRemote source={post.content} components={mdxComponents} />
+                <MDXRemote 
+                  source={post.content} 
+                  components={mdxComponents}
+                  options={{
+                    mdxOptions: {
+                      remarkPlugins: [remarkGfm],
+                    },
+                  }}
+                />
               </div>
             </article>
           </div>
