@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250">
+  <!-- Background -->
+  <rect width="600" height="250" fill="#f9f9f9"/>
+
+  <!-- Title -->
+  <text x="300" y="35" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a">
+    コーヒー摂取による血圧変化の比較
+  </text>
+
+  <!-- Non-habitual Drinker Section -->
+  <g transform="translate(50, 70)">
+    <text x="100" y="20" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="14" fill="#1a1a1a">
+      非習慣的飲用者
+    </text>
+
+    <!-- Before -->
+    <rect x="30" y="35" width="40" height="60" fill="#e8e8e8" stroke="#ccc" stroke-width="1"/>
+    <text x="50" y="115" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="12" fill="#666">
+      摂取前
+    </text>
+    <text x="50" y="75" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="14" fill="#333">
+      120
+    </text>
+
+    <!-- Arrow up -->
+    <path d="M 95 65 L 95 55 L 85 55 M 95 55 L 105 55" stroke="#e74c3c" stroke-width="2" fill="none"/>
+
+    <!-- After -->
+    <rect x="110" y="25" width="40" height="70" fill="#e8b4b4" stroke="#e74c3c" stroke-width="2"/>
+    <text x="130" y="115" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="12" fill="#666">
+      摂取後
+    </text>
+    <text x="130" y="65" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="14" fill="#e74c3c" font-weight="bold">
+      135
+    </text>
+  </g>
+
+  <!-- Habitual Drinker Section -->
+  <g transform="translate(320, 70)">
+    <text x="100" y="20" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="14" fill="#1a1a1a">
+      習慣的飲用者
+    </text>
+
+    <!-- Before -->
+    <rect x="30" y="35" width="40" height="60" fill="#e8e8e8" stroke="#ccc" stroke-width="1"/>
+    <text x="50" y="115" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="12" fill="#666">
+      摂取前
+    </text>
+    <text x="50" y="75" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="14" fill="#333">
+      120
+    </text>
+
+    <!-- Arrow flat -->
+    <path d="M 95 65 L 115 65" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+    <!-- After -->
+    <rect x="110" y="35" width="40" height="60" fill="#c8e8c8" stroke="#27ae60" stroke-width="1"/>
+    <text x="130" y="115" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="12" fill="#666">
+      摂取後
+    </text>
+    <text x="130" y="75" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="14" fill="#27ae60">
+      120
+    </text>
+  </g>
+
+  <!-- Note -->
+  <text x="300" y="200" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="12" fill="#666">
+    ※数値はイメージです
+  </text>
+  <text x="300" y="225" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="13" fill="#c4a77d">
+    習慣的な飲用では血圧上昇への耐性が獲得される
+  </text>
+</svg>
