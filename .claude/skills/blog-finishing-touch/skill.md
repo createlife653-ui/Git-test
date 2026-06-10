@@ -1,6 +1,6 @@
 ---
 name: blog-finishing-touch
-description: コーヒーブログ記事の仕上げ（フロントマター、画像、AI活用度）を一括で行います。記事の内容を分析して適切なメタデータを設定し、AI活用度を計算して追加します。
+description: コーヒーブログ記事の仕上げを行い、baselineを参照してAI文章残存率・AI工程関与率・人間独自価値率を追加します。
 triggers:
   - 仕上げして
   - 記事を仕上げて
@@ -35,6 +35,7 @@ parameters:
    - image選択（Unsplash）
    - tags抽出
    - excerpt生成
-3. AI活用度を計算・追加（記事の最後に）
+3. 対応するAI baselineとsourceFilesを確認
+4. 3指標のAI活用度を計算し、フロントマターと記事末尾へ追加
 
 **使用例**: 「この記事を仕上げて」「仕上げして」
