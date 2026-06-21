@@ -41,3 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# video campaign exports
+/video-campaigns/**/assets/generated-images/
+/video-campaigns/**/assets/canva-export/
+*.mp4
+*.mov
