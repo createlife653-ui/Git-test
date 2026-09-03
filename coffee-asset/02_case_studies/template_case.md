@@ -34,5 +34,43 @@
 - [ ] Increase temperature to 93°C to boost sweetness.
 - [ ] Grind finer (3 clicks) to extend contact time.
 
-## 6. Quotable Summary (For Asset / 資産化)
+## 6. AI Reflection (Learning Feedback / AI振り返り)
+*Use AI as a learning partner, not as a ghostwriter.*
+*AIは代筆者ではなく、観察を深める相手として使う。*
+
+### A. Separation / 分離
+- **Facts (客観情報)**:
+- **Perception (自分が感じたこと)**:
+- **Hypothesis (推測・仮説)**:
+
+### B. Questions / 問い
+*Turn vague impressions into questions for the next tasting.*
+*曖昧な感想を、次に確かめる問いへ変換する。*
+- 
+
+### C. Connections / 知識との接続
+*Link this cup to existing principles, frameworks, or patterns.*
+*この一杯を、既存の原理・型・パターンへ接続する。*
+- **Principles**:
+- **Frameworks**:
+- **Patterns**:
+
+### D. Next Experiment / 次回の小さな実験
+*Change only one variable: grind size, temperature, ratio, pouring, or time.*
+*挽き目・湯温・比率・注ぎ方・時間のうち、変える要素は1つだけにする。*
+- [ ] 
+
+### E. AI Prompt / AIに渡す依頼文
+```text
+このテイスティング記録を、学習目的で振り返ってください。
+
+やってほしいこと：
+1. 客観情報・主観・推測を分ける
+2. 曖昧な表現を質問に変える
+3. 関係しそうな抽出原理・焙煎・精製・産地知識を候補として出す
+4. 次回1つだけ試す実験を提案する
+5. ブログ化せず、coffee-asset内の知識として残す形にする
+```
+
+## 7. Quotable Summary (For Asset / 資産化)
 > "One sentence summary of this bean's character"
