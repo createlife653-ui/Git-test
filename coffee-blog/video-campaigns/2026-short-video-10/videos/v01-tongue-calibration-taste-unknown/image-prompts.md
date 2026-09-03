@@ -6,7 +6,7 @@ Vertical 9:16 editorial illustration, warm morning light, specialty coffee atmos
 
 ## Scene 1
 
-Japanese home coffee table with a ceramic coffee cup, three small white dishes, sugar, salt, and vinegar bottle shapes without labels, calm educational mood, top-down composition.
+Japanese home coffee table with a ceramic coffee cup, three small white dishes, one small dish of coarse sugar crystals, one small dish of fine table salt, one small unlabeled seasoning bottle with pale vinegar, calm educational mood, top-down composition.
 
 ## Scene 2
 
