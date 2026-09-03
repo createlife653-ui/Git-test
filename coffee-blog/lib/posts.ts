@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import type { AffiliateProduct } from './affiliate';
 
 const postsDirectory = path.join(process.cwd(), 'content/posts');
 
@@ -15,7 +14,6 @@ export interface Post {
   tags: string[];
   excerpt: string;
   content: string;
-  affiliateProducts?: AffiliateProduct[];
 }
 
 export interface PostMetadata {
@@ -77,7 +75,6 @@ export function getPostBySlug(slug: string): Post | null {
       tags: data.tags || [],
       excerpt: data.excerpt || '',
       content,
-      affiliateProducts: data.affiliateProducts || [],
     };
   } catch {
     return null;

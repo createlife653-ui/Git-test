@@ -1,51 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Coffee Blog
+
+`coffee-blog` は、コーヒーを学ぶための Next.js 製ブログです。
+
+このブログの目的は、SEO、収益化、記事数、SNS拡散ではありません。
+`coffee-asset` に残した観察や仮説を、他人に教えるつもりで説明し直し、自分の理解を確かめるために使います。
+
+## Role
+
+- `coffee-asset`: 学習の作業場。観察、原理、仮説、比較、次の実験を残す。
+- `coffee-blog`: 学習の発表練習。自分の言葉で説明できるか確認する。
+
+## Writing Policy
+
+- 1記事で1つの理解を扱う。
+- 体験していないことを、分かったふりで断言しない。
+- AIに丸投げせず、自分の観察・疑問・言葉を中心にする。
+- 記事末尾に「今回理解したこと」と「まだ分からないこと」を残す。
+- アフィリエイト、SEO最適化、拡散キャンペーンは一旦停止する。
 
 ## Getting Started
 
-First, run the development server:
+開発サーバーを起動します。
 
 ```bash
 cd coffee-blog
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開きます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Main Paths
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `content/posts/`: 学習記事の Markdown。
+- `app/`: Next.js App Router の画面。
+- `app/components/`: UI コンポーネント。
+- `lib/posts.ts`: Markdown 記事の読み込み。
+- `public/images/`: 図解や記事画像。
+- `_paused/`: 現在の学習目的から外れるが、履歴として残すもの。
 
-## Learn More
+## Learning Flow
 
-To learn more about Next.js, take a look at the following resources:
+1. `coffee-asset/02_case_studies/` に体験を記録する。
+2. `coffee-asset/00_principles/` とつなげて、理解を確認する。
+3. 繰り返し見える傾向を `coffee-asset/03_patterns/` にまとめる。
+4. 説明できそうなテーマだけ `content/posts/` に記事化する。
+5. 記事を書いた後、分からなかった点を `coffee-asset` に戻す。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Commands
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run dev
+npm run lint
+```
 
-## Deploy on Vercel
+## Production Links
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 本番サイト: https://coffee-blog-eta.vercel.app/
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
----
-
-## クイックリンク
-
-### Amazonアソシエイト
-- [アソシエイト管理画面](https://affiliate.amazon.co.jp/)
-- [商品ページ検索（トラッキングID付き）](https://www.amazon.co.jp/ref=nav_logo_tel的光る_0_1588477605912_1?tag=coffeeblog04-22)
-
-### Google Analytics
-- [GA4 ダッシュボード](https://analytics.google.com/)
-
-### 本番サイト
-- [Coffee Knowledge](https://coffee-blog-eta.vercel.app/)
+本番運用は残しますが、現在の優先順位は学習と理解の定着です。

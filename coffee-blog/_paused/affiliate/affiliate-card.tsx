@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { AffiliateProduct } from '@/lib/affiliate';
-import { buildAmazonUrl } from '@/lib/affiliate';
+import type { AffiliateProduct } from './affiliate';
+import { buildAmazonUrl } from './affiliate';
 
 interface AffiliateCardProps {
   product: AffiliateProduct;

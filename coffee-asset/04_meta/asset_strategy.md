@@ -1,13 +1,31 @@
-# Asset Strategy / 資産化戦略
+# Learning Strategy / 学習戦略
 
 ## Goal
-To transform personal experience into transferable knowledge.
+
+個人のコーヒー体験を、次の一杯で使える理解に変える。
+
+このフォルダの目的は、販売・拡散・記事数の最大化ではない。
+目的は「自分の味覚と言葉を育てること」と「原理を使って考えられるようになること」。
 
 ## Phases
-1. **Accumulation**: Build 100 Case Studies.
-2. **Synthesis**: Identify patterns (03_patterns).
-3. **Productization**: E-book, Online Course, Paid Newsletter.
+
+1. **Observe**
+   - 飲んだ事実、感じた味、思いついた仮説を分けて記録する。
+2. **Connect**
+   - 記録を `00_principles/` や `01_frameworks/` の知識とつなげる。
+3. **Compare**
+   - 似た豆、違う抽出条件、同じ産地などを比べて `03_patterns/` に残す。
+4. **Teach**
+   - 自分の言葉で説明できる段階になったら、`coffee-blog` に学習記事として書く。
+
+## Current Priority
+
+- 収益化、SEO、商品化、SNS拡散は一旦停止。
+- ブログ記事は「読まれるため」より「自分が理解したか確認するため」に書く。
+- 1回の記録につき、次の実験を1つだけ決める。
 
 ## Maintenance
-- Review "Principles" every 6 months for scientific accuracy.
-- Tag every "Case Study" with 3+ keywords for easy retrieval.
+
+- `00_principles/` は半年に1回、科学的な説明が古くなっていないか見直す。
+- `02_case_studies/` は豆名、産地、精製、焙煎、味のキーワードで探せるようにする。
+- `03_patterns/` は事例が増えたら更新し、例外も残す。

@@ -2,7 +2,6 @@ import { Header } from '../../components/layout/header';
 import { Footer } from '../../components/layout/footer';
 import { Chip } from '../../components/ui/chip';
 import { Button } from '../../components/ui/button';
-import { AffiliateSection } from '../../components/affiliate-card';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -129,30 +128,6 @@ export default async function ArticlePage({ params }: PageProps) {
                 />
               </div>
             </article>
-          </div>
-        </section>
-
-        {/* Affiliate Products Section */}
-        {post.affiliateProducts && post.affiliateProducts.length > 0 && (
-          <AffiliateSection products={post.affiliateProducts} />
-        )}
-
-        {/* Share Section */}
-        <section className="section-divider">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="flex items-center justify-between">
-              <span className="font-label text-xs uppercase tracking-widest text-primary/70">
-                この記事をシェア
-              </span>
-              <div className="flex gap-4">
-                <Button variant="secondary" size="sm">
-                  X (Twitter)
-                </Button>
-                <Button variant="secondary" size="sm">
-                  Facebook
-                </Button>
-              </div>
-            </div>
           </div>
         </section>
 

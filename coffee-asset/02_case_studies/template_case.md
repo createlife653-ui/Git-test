@@ -72,5 +72,8 @@
 5. ブログ化せず、coffee-asset内の知識として残す形にする
 ```
 
-## 7. Quotable Summary (For Asset / 資産化)
-> "One sentence summary of this bean's character"
+## 7. Learning Summary / 学習メモ
+
+- **今回理解したこと**:
+- **まだ分からないこと**:
+- **ブログ化できそうな問い**:

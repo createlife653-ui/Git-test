@@ -1,37 +1,57 @@
-# Coffee Knowledge Asset System
+# Coffee Learning Asset
+
+`coffee-asset` は、コーヒーの知識を身につけるための学習机です。
+目的は「発信するために量産すること」ではなく、飲んだ体験を観察し、原理とつなげ、自分の理解として残すことです。
+
+`coffee-blog` に出す文章も、ここで整理した理解を「教えるつもりで説明してみる」ための学習アウトプットとして扱います。
 
 ## Purpose
-This repository is not just a tasting log. It is a structured system to convert subjective coffee experiences into objective, reusable knowledge assets.
-単なる味覚ログではなく、再編集・再構築・再販売可能な「知識資産」を作るためのシステム。
 
-## Principles (基本方針)
-1. **Subjective vs Objective**: Always separate *what happened* (facts) from *what you felt* (perception).
-2. **Atomic Knowledge**: 1 File = 1 Theme.
-3. **Quotable**: Include one sentence that can be used on Twitter/Instagram/Slides.
-4. **AI Ready**: structured for easy ingestion by LLMs for summarization.
-## ⚠ 注意：`example` 名義のコミットについて
+- 味覚ログを、学習に使える観察・仮説・検証メモへ変える。
+- 主観的な感覚と、豆・抽出・焙煎・精製などの客観情報を分けて残す。
+- 同じ失敗や気づきを次の抽出で使える形にする。
+- ブログ化はゴールではなく、理解確認の手段として使う。
 
-このリポジトリには、初期設定の影響で `example` 名義のコミットが一部含まれます。  
-これは **アカウントが別にある**という意味ではなく、当時の Git 設定（user.name / user.email）によるものです。
+## Principles
 
-- **過去コミットを書き換えないこと（履歴改変・force push禁止）**
-- 今後のコミットは `Kenta Fujikura` 名義で行う
+1. **Facts / Perception / Hypothesis を分ける**
+   - Facts: 豆、焙煎、抽出条件、湯温、粉量、時間など。
+   - Perception: 甘い、酸っぱい、重い、香りが開いた、飲みにくいなど。
+   - Hypothesis: 温度が高すぎたかもしれない、挽き目が細かいかもしれないなど。
+2. **1 file = 1 theme**
+   - ひとつのファイルに複数テーマを詰め込みすぎない。
+3. **Next experiment を1つだけ決める**
+   - 次回変える条件は原則1つにする。
+4. **Blog is learning-by-teaching**
+   - 記事は完成品ではなく、理解を確認するための説明練習として扱う。
 
-もし `example` が再発した場合は、まず以下で原因（local/global）を確認します：
+## Structure
+
+- `00_principles/`: 抽出、酸味、苦味、甘さ、精製、産地などの原理。
+- `01_frameworks/`: テイスティング、評価、改善ループ、舌のキャリブレーション。
+- `02_case_studies/`: 実際に飲んだ豆・抽出・感じた味の記録。
+- `03_patterns/`: 複数の記録から見えてきた傾向や比較。
+- `04_meta/`: この学習システム自体の運用、振り返り、ブログとの接続。
+
+## Basic Flow
+
+1. コーヒーを淹れる。
+2. `02_case_studies/_template.md` または既存ケースを参考に記録する。
+3. Facts / Perception / Hypothesis を分ける。
+4. 関連する原理を `00_principles/` で確認する。
+5. 繰り返し出る傾向があれば `03_patterns/` にまとめる。
+6. 自分の言葉で説明できそうになったら `coffee-blog/content/posts/` に学習記事を書く。
+
+## Git Note
+
+このリポジトリには、初期設定の影響で `example` 名義のコミットが一部含まれます。
+これはアカウントが別にあるという意味ではなく、当時の Git 設定によるものです。
+
+- 過去コミットを書き換えないこと。
+- 今後のコミットは `Kenta Fujikura` 名義で行う。
+
+もし `example` が再発した場合は、まず以下で原因を確認します。
 
 ```bash
 git config --show-origin --get user.email
-
-
-## Structure
-- **00_principles/**: Universal truths and scientific mechanisms. (Extraction, Chemistry)
-- **01_frameworks/**: Tools for analysis. (Tasting forms, Calibration)
-- **02_case_studies/**: Daily logs and specific bean analysis. (The raw data)
-- **03_patterns/**: Insights derived from connecting case studies. (The wisdom)
-- **04_meta/**: Plans for outputting this knowledge (Books, Web, Seminars).
-
-## Usage
-1. Brew coffee.
-2. Duplicate `02_case_studies/template_case.md`.
-3. Fill in the data.
-4. If you start seeing a pattern (e.g., "All washed Ethiopians taste like lemon tea"), document it in `03_patterns`.
+```

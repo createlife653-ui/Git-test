@@ -10,22 +10,6 @@ tags:
   - 淹れ方
   - ペーパードリップ
 excerpt: '私が実践しているハンドドリップコーヒーの淹れ方を紹介します。'
-affiliateProducts:
-  - title: 'TIMEMORE C2 MAX コーヒーミル'
-    asin: 'B09M72M1N9'
-    image: 'https://m.media-amazon.com/images/I/41ENj1XgDeL._AC_SL1473_.jpg'
-    description: 'ステンレス臼の手挽きミル。均一な挽き目でコーヒーの味わいを引き出します。約30gの豆を一度に挽けます。'
-    category: 'ミル'
-  - title: 'BESROY 電気ケトル 温度調整機能付き'
-    asin: 'B0GQZF79Z1'
-    image: 'https://m.media-amazon.com/images/I/61l8L0fraIL._AC_SL1500_.jpg'
-    description: '1℃単位で温度調整可能（40〜100℃）。細口ノズルでお湯のコントロールがしやすく、ドリップタイマー機能付き。'
-    category: 'ケトル'
-  - title: 'HARIO(ハリオ) コーヒースケール ポラリス ブラック'
-    asin: 'B0DBPD5DPC'
-    image: 'https://m.media-amazon.com/images/I/31uNxC1Ky4L._AC_SL1000_.jpg'
-    description: '抽出比率を自動計算し、パーセント表示してくれるコーヒースケール。注ぐべきお湯の量が一目で分かり、レシピの再現性が高まります。'
-    category: '計量器'
 ---
 
 # 私のペーパーフィルターコーヒーの淹れ方
