@@ -20,7 +20,7 @@ export function Button({
   children,
   asChild = false,
   ...props
-}: ButtonProps & React.ComponentProps<'button'> & React.ComponentProps<'a'>) {
+}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50';
 
   const variantStyles = {
@@ -39,8 +39,10 @@ export function Button({
 
   // If asChild is true and there's a single child (like Link), render it with styles
   if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children as React.ReactElement<any>, {
-      className: `${combinedClassName} ${(children.props as any).className || ''}`,
+    const child = children as React.ReactElement<{ className?: string }>;
+
+    return React.cloneElement(child, {
+      className: `${combinedClassName} ${child.props.className || ''}`,
     });
   }
 

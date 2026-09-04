@@ -7,7 +7,7 @@ import Link from 'next/link';
 interface CardProps {
   children: React.ReactNode;
   className?: string;
-  as?: 'article' | 'div' | React.FC<any>;
+  as?: React.ElementType;
   href?: string;
 }
 

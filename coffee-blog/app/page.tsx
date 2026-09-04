@@ -1,7 +1,7 @@
 import { Header } from './components/layout/header';
 import { Footer } from './components/layout/footer';
 import { Card, CardImage, CardHeader, CardTitle, CardExcerpt, CardMeta } from './components/ui/card';
-import { CategoryChip, Chip } from './components/ui/chip';
+import { CategoryChip } from './components/ui/chip';
 import { Button } from './components/ui/button';
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/posts';
@@ -29,13 +29,13 @@ export default async function HomePage() {
               {/* Hero Title - Display Typography */}
               <h1 className="font-display font-bold text-display text-primary leading-tight mb-6">
                 日常のコーヒーを<br />
-                <span className="text-primary/80">知識資産に</span>
+                <span className="text-primary/80">学習ノートに</span>
               </h1>
 
               {/* Subtitle */}
               <p className="text-body-lg text-secondary mb-8 max-w-xl">
-                コーヒーの知識を体系立てて記録・発信。
-                スペシャルティコーヒーの世界を探求する。
+                飲んだ体験を観察し、原理とつなげ、自分の言葉で説明してみる。
+                コーヒーを学ぶための個人的な記録です。
               </p>
 
               {/* CTA Buttons */}
@@ -115,26 +115,6 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Newsletter Section */}
-        <section className="section-divider">
-          <div className="max-w-2xl mx-auto px-6 text-center">
-            <h2 className="font-display font-semibold text-headline-lg text-primary mb-4">
-              ニュースレター
-            </h2>
-            <p className="text-secondary mb-8">
-              新着記事やコーヒーの知識をメールでお届けします。
-            </p>
-            <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-6 py-3 bg-surface-lowest border-b-2 border-outline-variant focus:border-primary outline-none text-sm transition-colors"
-                required
-              />
-              <Button type="submit">登録する</Button>
-            </form>
-          </div>
-        </section>
       </main>
       <Footer />
     </>

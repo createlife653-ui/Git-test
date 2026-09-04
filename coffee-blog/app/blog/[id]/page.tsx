@@ -8,33 +8,34 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/posts';
 import Image from 'next/image';
 import remarkGfm from 'remark-gfm';
+import type React from 'react';
 
 /* Blog Article Page - Markdownベースの実装 */
 
 const mdxComponents = {
   // 必要に応じてカスタムコンポーネントを追加
-  h1: (props: any) => <h1 className="font-display font-bold text-3xl text-primary mt-8 mb-4" {...props} />,
-  h2: (props: any) => <h2 className="font-display font-semibold text-2xl text-primary mt-6 mb-3" {...props} />,
-  h3: (props: any) => <h3 className="font-display font-semibold text-xl text-primary mt-5 mb-2" {...props} />,
-  p: (props: any) => <p className="text-primary/90 leading-relaxed mb-4" {...props} />,
-  ul: (props: any) => <ul className="list-disc list-inside mb-4 space-y-2" {...props} />,
-  ol: (props: any) => <ol className="list-decimal list-inside mb-4 space-y-2" {...props} />,
-  li: (props: any) => <li className="text-primary/90" {...props} />,
-  strong: (props: any) => <strong className="font-bold text-primary" {...props} />,
-  table: (props: any) => (
+  h1: (props: React.ComponentPropsWithoutRef<'h1'>) => <h1 className="font-display font-bold text-3xl text-primary mt-8 mb-4" {...props} />,
+  h2: (props: React.ComponentPropsWithoutRef<'h2'>) => <h2 className="font-display font-semibold text-2xl text-primary mt-6 mb-3" {...props} />,
+  h3: (props: React.ComponentPropsWithoutRef<'h3'>) => <h3 className="font-display font-semibold text-xl text-primary mt-5 mb-2" {...props} />,
+  p: (props: React.ComponentPropsWithoutRef<'p'>) => <p className="text-primary/90 leading-relaxed mb-4" {...props} />,
+  ul: (props: React.ComponentPropsWithoutRef<'ul'>) => <ul className="list-disc list-inside mb-4 space-y-2" {...props} />,
+  ol: (props: React.ComponentPropsWithoutRef<'ol'>) => <ol className="list-decimal list-inside mb-4 space-y-2" {...props} />,
+  li: (props: React.ComponentPropsWithoutRef<'li'>) => <li className="text-primary/90" {...props} />,
+  strong: (props: React.ComponentPropsWithoutRef<'strong'>) => <strong className="font-bold text-primary" {...props} />,
+  table: (props: React.ComponentPropsWithoutRef<'table'>) => (
     <div className="overflow-x-auto mb-6 rounded-lg overflow-hidden shadow-sm">
       <table className="min-w-full border-collapse bg-surface-lowest" {...props} />
     </div>
   ),
-  thead: (props: any) => <thead className="bg-surface-low" {...props} />,
-  th: (props: any) => (
+  thead: (props: React.ComponentPropsWithoutRef<'thead'>) => <thead className="bg-surface-low" {...props} />,
+  th: (props: React.ComponentPropsWithoutRef<'th'>) => (
     <th className="border-b-2 border-outline-variant px-5 py-3 text-left font-semibold text-primary text-sm tracking-wide" {...props} />
   ),
-  tbody: (props: any) => <tbody className="divide-y divide-outline-variant/20" {...props} />,
-  tr: (props: any) => (
+  tbody: (props: React.ComponentPropsWithoutRef<'tbody'>) => <tbody className="divide-y divide-outline-variant/20" {...props} />,
+  tr: (props: React.ComponentPropsWithoutRef<'tr'>) => (
     <tr className="even:bg-surface-low/30 hover:bg-primary/5 transition-colors" {...props} />
   ),
-  td: (props: any) => (
+  td: (props: React.ComponentPropsWithoutRef<'td'>) => (
     <td className="px-5 py-3 text-primary/90 text-sm" {...props} />
   ),
 };
