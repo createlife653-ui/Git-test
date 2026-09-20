@@ -1,7 +1,6 @@
----
 title: '私のペーパーフィルターコーヒーの淹れ方'
 slug: 'watasino-hikikata'
-category: '所感'
+category: 'コーヒー知識'
 date: '2026-05-18'
 readTime: '5 min'
 image: 'https://images.unsplash.com/photo-1512568400610-62da28bc8a13?w=1200&h=600&fit=crop'
@@ -10,7 +9,6 @@ tags:
   - 淹れ方
   - ペーパードリップ
 excerpt: '私が実践しているハンドドリップコーヒーの淹れ方を紹介します。'
----
 
 # 私のペーパーフィルターコーヒーの淹れ方
 
