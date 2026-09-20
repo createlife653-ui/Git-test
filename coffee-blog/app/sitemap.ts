@@ -24,14 +24,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
   ];
 
-  const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+  const blogPages: MetadataRoute.Sitemap = posts.map((post) => {
+    const lastModified = new Date(post.date);
+
+    return {
+      url: `${baseUrl}/blog/${post.slug}`,
+      ...(Number.isNaN(lastModified.getTime()) ? {} : { lastModified }),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    };
+  });
 
   return [...staticPages, ...blogPages];
 }

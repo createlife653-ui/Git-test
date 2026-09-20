@@ -71,6 +71,12 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-outline-variant/15 text-center text-sm text-secondary">
           <p>&copy; {new Date().getFullYear()} Coffee Knowledge. All rights reserved.</p>
+          <Link
+            href="/privacy"
+            className="inline-block mt-3 text-xs hover:text-primary transition-colors"
+          >
+            プライバシーポリシー
+          </Link>
         </div>
       </div>
     </footer>
