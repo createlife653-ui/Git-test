@@ -1,5 +1,5 @@
 # YYYYMMDD Bean Name (日付と豆の名前)
-ブラジルプレミアムショコラ
+Brajil-Premium-Chocola
 ## 1. Basic Data / 豆のデータ
 (わかっていることだけでOK！)
 - 産地：ミナスジェイラス州
