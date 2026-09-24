@@ -1,0 +1,5 @@
+tools/countries.geojson
+tools/elevation.grd
+tools/terrain.zip
+tools/*.png
+tools/__pycache__/
