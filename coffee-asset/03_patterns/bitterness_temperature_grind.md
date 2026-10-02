@@ -69,4 +69,6 @@
 
 基礎を確認する：[濃度（TDS）と抽出率の図解](../00_principles/extraction_principles.md)
 
+疑問から順に読む：[「濃い」と「苦い」は何が違う？ 対話形式のサブ記事](bitterness_temperature_grind_dialogue.md)
+
 記録：2026-09-29の対話をもとに整理。

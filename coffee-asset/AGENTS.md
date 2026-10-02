@@ -17,6 +17,14 @@ This folder is a learning-first coffee knowledge asset system. Treat attached fi
 - Suggest at most one primary next experiment per tasting note. Change only one variable when possible.
 - Treat blog monetization, SEO optimization, and article production as paused unless the user explicitly asks for them.
 
+## Learning Article Formats
+
+- Keep dialogue-based learning articles as an option, not a mandatory format. Use concise summaries for quick reference; suggest dialogue when tracing how understanding developed would help the reader.
+- When preparing a learning article from a conversation, consider dialogue if one question leads to another, or if intermediate misconceptions and concrete examples explain how the user reached an insight.
+- Let the user's actual questions and reasoning determine the order. Preserve meaningful uncertainties and turning points while removing repetition and shortening answers for readability.
+- Correct errors in the AI's explanations, acknowledging earlier misleading explanations when relevant. Do not invent user questions, understanding, decisions, or experiences, and keep hypothetical exercises separate from reported observations.
+- Clearly label condensed or reorganized dialogue as a summary rather than a verbatim transcript. A dialogue article may be a linked companion to a short reference article; do not create both automatically.
+
 ## AI Role
 
 Act as a learning partner:
