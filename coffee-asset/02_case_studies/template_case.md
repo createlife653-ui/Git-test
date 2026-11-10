@@ -7,7 +7,7 @@
 - **Roast Date (焙煎日)**: YYYY/MM/DD
 - **Roast Level (焙煎度)**: Light / Medium / Dark
 
-> **Note:** 詳細な栽培地情報を記録・比較したい場合は、[00_principles/originsディレクトリ](../00_principles/origins/)で国・地域ごとのファイルに情報を蓄積できます
+> **Note:** 詳細な栽培地情報を記録・比較したい場合は、[00_principles/growing_regionsディレクトリ](../00_principles/growing_regions/)で国・地域ごとのファイルに情報を蓄積できます
 
 ## 2. Brewing Recipe (Brewing Parameters / 抽出レシピ)
 - **Method**: V60 / French Press / AeroPress

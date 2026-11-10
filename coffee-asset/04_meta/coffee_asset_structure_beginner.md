@@ -74,7 +74,8 @@ coffee-asset/
 - `sweetness` = 甘味
 - `temperature` = 温度
 - `processing` = 精製
-- `origins` = 産地
+- `growing_regions` = 生産地
+- `varieties` = 品種
 
 ## 01_frameworks
 

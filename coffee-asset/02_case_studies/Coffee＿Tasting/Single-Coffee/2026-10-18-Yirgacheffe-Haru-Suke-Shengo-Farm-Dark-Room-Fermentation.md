@@ -15,7 +15,7 @@
 - **Roast Date (焙煎日)**: 不明（情報なし）
 - **Roast Level (焙煎度)**: 不明（情報なし）
 
-> **Note:** 詳細な栽培地情報を記録・比較したい場合は、[00_principles/originsディレクトリ](../00_principles/origins/)で国・地域ごとのファイルに情報を蓄積できます
+> **Note:** 詳細な栽培地情報を記録・比較したい場合は、[00_principles/growing_regionsディレクトリ](../../../00_principles/growing_regions/)で国・地域ごとのファイルに情報を蓄積できます
 
 ### 販売時の説明・テイスト表記
 

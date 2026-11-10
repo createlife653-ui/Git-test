@@ -40,7 +40,7 @@ coffee-asset/
 ├── README.md（学びの物語セクション追加）
 ├── LEARNING.md（新規：学習ジャーナル）
 ├── 00_principles/
-│   └── origins/
+│   └── growing_regions/
 ├── 01_frameworks/
 ├── 02_case_studies/
 └── 03_patterns/
@@ -91,7 +91,7 @@ coffee-asset/
 ### 今日の学び
 - **テーマ**: 産地情報のシステム化
 - **作業内容**: originsディレクトリの作成
-- **参照**: [Indonesia](00_principles/origins/Indonesia.md)
+- **参照**: [Indonesia](../../../00_principles/growing_regions/Indonesia.md)
 
 ### 新しい発見
 - 国単位で情報を集めるより、地域単位の方が詳細
